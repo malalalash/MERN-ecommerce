@@ -37,7 +37,7 @@ const Header = () => {
         <button className="text-lg mt-1 md:hidden" onClick={toggleMenu}>
           <Bars3Icon className="h-7 w-7" />
         </button>
-        <h1 className="flex-2 sm:ml-12 md:ml-0 text-2xl md:text-3xl lg:text-4xl font-extrabold">
+        <h1 className="flex-2 xl:-translate-x-20 ml-10 md:ml-0 text-2xl md:text-3xl lg:text-4xl font-extrabold">
           MERN store
         </h1>
         {isOpen && (
@@ -54,7 +54,7 @@ const Header = () => {
               <XMarkIcon />
             </button>
           </div>
-          <ul className="flex font-semibold flex-col items-start uppercase tracking-widest justify-start gap-4 md:flex-row md:items-center md:p-0 md:m-0 border-b m-5 pb-5 md:border-none">
+          <ul className="flex md:mr-24 lg:mr-32 font-semibold flex-col items-start uppercase tracking-widest justify-start gap-4 md:flex-row md:items-center md:p-0 md:m-0 border-b m-5 pb-5 md:border-none">
             <li className="nav-link">Home</li>
             <li className="nav-link">Shop</li>
             <li className="nav-link">About</li>

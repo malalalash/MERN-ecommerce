@@ -15,6 +15,11 @@ const Home = () => {
           />
         </picture>
       </div>
+      <div className="w-full max-w-4xl mx-auto flex items-center justify-center">
+        <h1 className="inline-block my-10 uppercase font-bold text-xl md:text-2xl lg:text-3xl">
+          Featured Products
+        </h1>
+      </div>
     </section>
   );
 };
