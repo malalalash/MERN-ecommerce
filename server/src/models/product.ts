@@ -40,7 +40,7 @@ const ProductSchema = new mongoose.Schema(
     },
     isFeatured: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     inStock: {
       type: Boolean,
