@@ -4,29 +4,15 @@ import {
   UserIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { useState, useEffect } from "react";
-import fb from "../../assets/svg/fb.svg";
-import ins from "../../assets/svg/ins.svg";
-import link from "../../assets/svg/link.svg";
-import yt from "../../assets/svg/yt.svg";
+import { useState } from "react";
+import useClickOutside from "../../hooks/useClickOutside";
+import Social from "../Social/Social";
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => setIsOpen((prevIsOpen) => !prevIsOpen);
 
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (isOpen && !target.closest("#mobile-menu")) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isOpen]);
+  useClickOutside(isOpen, setIsOpen);
 
   return (
     <header className="border-b shadow">
@@ -54,41 +40,12 @@ const Header = () => {
               <XMarkIcon />
             </button>
           </div>
-          <ul className="flex md:mr-24 lg:mr-32 font-semibold flex-col items-start uppercase tracking-widest justify-start gap-4 md:flex-row md:items-center md:p-0 md:m-0 border-b m-5 pb-5 md:border-none">
+          <ul className="flex md:mr-24 lg:mr-36 font-semibold flex-col items-start uppercase tracking-widest justify-start gap-4 md:flex-row md:items-center md:p-0 md:m-0 border-b m-5 pb-5 md:border-none">
             <li className="nav-link">Home</li>
             <li className="nav-link">Shop</li>
             <li className="nav-link">About</li>
           </ul>
-          <ul className="md:hidden flex-wrap gap-3 mx-auto flex flex-row items-center justify-center p-5">
-            <li className="w-12 cursor-pointer h-12 border p-2 rounded-full bg-white">
-              <img
-                src={fb}
-                alt="facebook logo"
-                className="w-full object-cover"
-              />
-            </li>
-            <li className="w-12 cursor-pointer h-12 border p-2 rounded-full bg-white">
-              <img
-                src={ins}
-                alt="instagram logo"
-                className="w-full object-cover"
-              />
-            </li>
-            <li className="w-12 cursor-pointer h-12 border p-2 rounded-full bg-white">
-              <img
-                src={yt}
-                alt="youtube logo"
-                className="w-full object-cover"
-              />
-            </li>
-            <li className="w-12 cursor-pointer h-12 border p-2 rounded-full bg-white">
-              <img
-                src={link}
-                alt="linkedin logo"
-                className="w-full object-cover"
-              />
-            </li>
-          </ul>
+          <Social />
         </nav>
         <ul className="flex items-center justify-between gap-2 mt-1">
           <li className="nav-link pt-1">
