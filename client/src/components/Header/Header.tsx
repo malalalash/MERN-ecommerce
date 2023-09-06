@@ -7,6 +7,7 @@ import {
 import { useState } from "react";
 import useClickOutside from "../../hooks/useClickOutside";
 import Social from "../Social/Social";
+import { NavLink, Link } from "react-router-dom";
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -23,15 +24,18 @@ const Header = () => {
         <button className="text-lg mt-1 md:hidden" onClick={toggleMenu}>
           <Bars3Icon className="h-7 w-7" />
         </button>
-        <h1 className="flex-2 xl:-translate-x-20 ml-10 md:ml-0 text-2xl md:text-3xl lg:text-4xl font-extrabold">
+        <Link
+          to={"/"}
+          className="flex-2 xl:-translate-x-20 ml-10 md:ml-0 text-2xl md:text-3xl lg:text-4xl font-extrabold"
+        >
           MERN store
-        </h1>
+        </Link>
         {isOpen && (
-          <div className="w-full min-h-screen fixed top-0 left-0 md:hidden bg-black/40"></div>
+          <div className="w-full min-h-screen fixed top-0 left-0 md:hidden bg-black/40 z-50"></div>
         )}
         <nav
           id="mobile-menu"
-          className={`absolute md:relative bg-white top-0 left-0 min-h-screen w-[70%] md:top-auto md:left-auto md:min-h-0 md:w-auto transform transition-all duration-300 ${
+          className={`absolute z-50 md:relative bg-white top-0 left-0 min-h-screen w-[70%] md:top-auto md:left-auto md:min-h-0 md:w-auto transform transition-all duration-300 ${
             isOpen ? "translate-x-0" : "-translate-x-full"
           } md:translate-x-0 md:duration-0 md:transform-none md:transition-none`}
         >
@@ -41,9 +45,15 @@ const Header = () => {
             </button>
           </div>
           <ul className="flex md:mr-24 lg:mr-36 font-semibold flex-col items-start uppercase tracking-widest justify-start gap-4 md:flex-row md:items-center md:p-0 md:m-0 border-b m-5 pb-5 md:border-none">
-            <li className="nav-link">Home</li>
-            <li className="nav-link">Shop</li>
-            <li className="nav-link">About</li>
+            <NavLink onClick={toggleMenu} to={"/"} className="nav-link">
+              Home
+            </NavLink>
+            <NavLink onClick={toggleMenu} to={"/shop"} className="nav-link">
+              Shop
+            </NavLink>
+            <NavLink onClick={toggleMenu} to={"/about"} className="nav-link">
+              About
+            </NavLink>
           </ul>
           <Social />
         </nav>

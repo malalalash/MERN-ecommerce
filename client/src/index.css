@@ -7,4 +7,7 @@
   .nav-link {
     @apply hover:bg-black hover:text-white px-1 transform transition-colors duration-300 cursor-pointer;
   }
+  .nav-link.active {
+    @apply bg-black text-white;
+  }
 }
