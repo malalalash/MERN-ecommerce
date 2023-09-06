@@ -23,6 +23,8 @@ const ProductSchema = new mongoose.Schema(
     imageUrl: {
       type: String,
       required: true,
+      default:
+        "https://res.cloudinary.com/dmzqeouuh/image/upload/v1693993001/MERN%20ecommerce/placeholder_u9y98a.png",
     },
     sizes: {
       type: [String],
@@ -54,6 +56,7 @@ const ProductSchema = new mongoose.Schema(
 ProductSchema.pre("save", function (next) {
   const product = this;
   product.name = product.name.trim();
+  product.description = product.description.trim();
   product.slug = slugify(product.name);
   next();
 });
