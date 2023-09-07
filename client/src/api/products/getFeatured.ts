@@ -1,4 +1,4 @@
-import baseURL from "../utils/baseURL";
+import baseURL from "../../utils/baseURL";
 
 export const getFeatured = async () => {
   try {

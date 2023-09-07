@@ -7,6 +7,7 @@ const ProductSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
+      trim: true,
     },
     price: {
       type: Number,
@@ -15,6 +16,7 @@ const ProductSchema = new mongoose.Schema(
     description: {
       type: String,
       required: true,
+      trim: true,
     },
     category: {
       type: String,
@@ -55,8 +57,6 @@ const ProductSchema = new mongoose.Schema(
 
 ProductSchema.pre("save", function (next) {
   const product = this;
-  product.name = product.name.trim();
-  product.description = product.description.trim();
   product.slug = slugify(product.name);
   next();
 });

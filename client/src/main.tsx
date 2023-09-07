@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { getFeatured } from "./api/getFeatured";
+import { getFeatured } from "./api/products/getFeatured";
 import RootLayout from "./layout/RootLayout";
 import Home from "./pages/Home";
 import Product from "./pages/Product";

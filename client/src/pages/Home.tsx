@@ -8,7 +8,7 @@ const Home = () => {
   const featured = useLoaderData() as ProducsType[];
 
   return (
-    <section className="w-full min-h-screen bg-gray-50">
+    <section className="w-full min-h-screen">
       <div className="w-full h-64 sm:h-80 lg:h-96 bg-black/50">
         <picture>
           <source srcSet={salesm} media="(max-width: 768px)" />
