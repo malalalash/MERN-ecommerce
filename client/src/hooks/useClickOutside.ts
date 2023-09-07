@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const useClickOutside = (
+export const useClickOutside = (
   isOpen: boolean,
   setIsOpen: (isOpen: boolean) => void,
   classOrId: string
@@ -21,4 +21,3 @@ const useClickOutside = (
   }, [isOpen]);
 };
 
-export default useClickOutside;

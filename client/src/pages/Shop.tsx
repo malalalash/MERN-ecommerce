@@ -1,8 +1,7 @@
-
+import { useScrollToTop } from "../hooks/useScrollToTop";
 const Shop = () => {
-  return (
-    <div>Shop</div>
-  )
-}
+  useScrollToTop();
+  return <div>Shop</div>;
+};
 
-export default Shop
+export default Shop;
