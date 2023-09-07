@@ -38,7 +38,7 @@ export const deleteProduct = async (req: Request, res: Response) => {
 
 export const getFeaturedProducts = async (req: Request, res: Response) => {
   try {
-    const products = await Product.find({ isFeatured: true });
+    const products = await Product.find({ isFeatured: true }).limit(6);
     if (products.length === 0) {
       return res.status(404).json({
         message: "Products not found",

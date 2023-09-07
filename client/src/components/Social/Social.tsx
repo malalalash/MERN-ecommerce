@@ -5,7 +5,7 @@ import yt from "../../assets/svg/yt.svg";
 
 const Social = () => {
   return (
-    <ul className="md:hidden flex-wrap gap-3 mx-auto flex flex-row items-center justify-center p-5">
+    <ul className="flex-wrap gap-4 mx-auto flex flex-row items-center justify-start">
       <li className="w-12 cursor-pointer h-12 border p-2 rounded-full bg-white">
         <img src={fb} alt="facebook logo" className="w-full object-cover" />
       </li>

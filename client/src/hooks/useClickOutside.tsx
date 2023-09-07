@@ -2,12 +2,13 @@ import { useEffect } from "react";
 
 const useClickOutside = (
   isOpen: boolean,
-  setIsOpen: (isOpen: boolean) => void
+  setIsOpen: (isOpen: boolean) => void,
+  classOrId: string
 ) => {
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      if (isOpen && !target.closest("#mobile-menu")) {
+      if (isOpen && !target.closest(classOrId)) {
         setIsOpen(false);
       }
     };

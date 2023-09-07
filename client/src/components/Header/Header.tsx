@@ -13,7 +13,7 @@ const Header = () => {
 
   const toggleMenu = () => setIsOpen((prevIsOpen) => !prevIsOpen);
 
-  useClickOutside(isOpen, setIsOpen);
+  useClickOutside(isOpen, setIsOpen, "#mobile-menu");
 
   return (
     <header className="border-b shadow">
@@ -44,7 +44,11 @@ const Header = () => {
               <XMarkIcon />
             </button>
           </div>
-          <ul className="flex md:mr-24 lg:mr-36 font-semibold flex-col items-start uppercase tracking-widest justify-start gap-4 md:flex-row md:items-center md:p-0 md:m-0 border-b m-5 pb-5 md:border-none">
+          <ul
+            className={`flex md:mr-24 lg:mr-36 font-semibold flex-col items-start uppercase tracking-widest justify-start gap-4 md:flex-row md:items-center md:p-0 md:m-0 border-b m-5 pb-5 md:border-none ${
+              isOpen ? "" : "hidden md:flex"
+            }`}
+          >
             <NavLink onClick={toggleMenu} to={"/"} className="nav-link">
               Home
             </NavLink>
@@ -55,7 +59,9 @@ const Header = () => {
               About
             </NavLink>
           </ul>
-          <Social />
+          <div className="md:hidden ml-5">
+            <Social />
+          </div>
         </nav>
         <ul className="flex items-center justify-between gap-2 mt-1">
           <li className="nav-link pt-1">
