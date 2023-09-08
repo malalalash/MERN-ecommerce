@@ -7,7 +7,7 @@ const ProductCard = ({ product }: { product: ProducsType }) => {
       key={product._id}
       className="bg-white relative z-10 w-full max-w-xs rounded-lg shadow-lg overflow-hidden flex flex-col mx-5 sm:mx-0"
     >
-      <Link to={`/product/${product.slug}`}>
+      <Link to={`shop/${product.slug}`}>
         <img
           src={product.imageUrl}
           alt={product.name}
@@ -20,7 +20,7 @@ const ProductCard = ({ product }: { product: ProducsType }) => {
         </span>
       )}
       <div className="ml-5 my-5">
-        <Link to={`/product/${product.slug}`} className="font-semibold text-xl">
+        <Link to={`shop/${product.slug}`} className="font-semibold text-xl">
           {product.name}
         </Link>
         <div className="gap-5 flex">

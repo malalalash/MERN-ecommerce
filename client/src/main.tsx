@@ -24,7 +24,7 @@ const router = createBrowserRouter(
       <Route index={true} path="/" element={<Home />} loader={getFeatured} />
       <Route path="shop" element={<Shop />} />
       <Route path="about" element={<About />} />
-      <Route path="product/:slug" element={<Product />} />
+      <Route path="shop/:slug" element={<Product />} />
     </Route>,
   ])
 );
