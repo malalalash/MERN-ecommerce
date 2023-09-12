@@ -8,43 +8,6 @@ const Shop = () => {
   const all = useLoaderData() as ProducsType[];
   const [value, setValue] = useState(1000);
   const [sort, setSort] = useState("newest");
-  let sortedProducts;
-
-  switch (sort) {
-    case "newest":
-      {
-        sortedProducts = [...all].sort((a, b) => {
-          return (
-            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-          );
-        });
-      }
-      break;
-    case "featured":
-      {
-        sortedProducts = all.filter((product) => {
-          return product.isFeatured;
-        });
-      }
-      break;
-
-    case "asc":
-      {
-        sortedProducts = [...all].sort((a, b) => {
-          return a.price - b.price;
-        });
-      }
-      break;
-    case "desc": {
-      sortedProducts = [...all].sort((a, b) => {
-        return b.price - a.price;
-      });
-      break;
-    }
-    default: {
-      return null;
-    }
-  }
 
   return (
     <section className="w-full">
@@ -86,7 +49,7 @@ const Shop = () => {
               </div>
             </div>
             <article className="w-full mb-10 mx-auto max-w-5xl justify-center lg:justify-between items-center flex gap-5 flex-wrap">
-              {sortedProducts?.map((product) => {
+              {all?.map((product) => {
                 return (
                   value > product.price && (
                     <ProductCard product={product} key={product._id} />

@@ -86,3 +86,14 @@ export const getAll = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const getFilteredProducts = async (req: Request, res: Response) => {
+  try {
+    
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      message: error,
+    });
+  }
+};

@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { slugify } from "../utils/slugify.js";
+const { ObjectId } = mongoose.Schema;
 
 const ProductSchema = new mongoose.Schema(
   {
@@ -22,8 +23,9 @@ const ProductSchema = new mongoose.Schema(
       trim: true,
     },
     category: {
-      type: String,
+      type: ObjectId,
       required: true,
+      ref: "Category",
     },
     imageUrl: {
       type: String,
