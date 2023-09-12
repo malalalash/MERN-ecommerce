@@ -13,6 +13,9 @@ const ProductSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    originalPrice: {
+      type: Number,
+    },
     description: {
       type: String,
       required: true,
@@ -42,7 +45,7 @@ const ProductSchema = new mongoose.Schema(
     },
     isFeatured: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     inStock: {
       type: Boolean,
@@ -58,6 +61,7 @@ const ProductSchema = new mongoose.Schema(
 ProductSchema.pre("save", function (next) {
   const product = this;
   product.slug = slugify(product.name);
+  product.originalPrice = product.price;
   next();
 });
 

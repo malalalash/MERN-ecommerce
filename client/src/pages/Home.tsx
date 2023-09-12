@@ -21,14 +21,18 @@ const Home = () => {
         </picture>
       </div>
       <div className="flex flex-col items-center justify-center">
-        <h2 className="inline-block my-10 uppercase font-bold text-xl md:text-2xl lg:text-3xl">
+        <h1 className="inline-block my-10 uppercase font-bold text-xl md:text-2xl lg:text-3xl">
           Featured Products
-        </h2>
-        <article className="w-full mx-auto max-w-5xl justify-center lg:justify-between items-center flex gap-5 flex-wrap">
-          {featured?.map((product) => {
-            return <ProductCard product={product} key={product._id} />;
-          })}
-        </article>
+        </h1>
+        {featured.length > 0 ? (
+          <article className="w-full mx-auto max-w-5xl justify-center lg:justify-between items-center flex gap-5 flex-wrap">
+            {featured?.map((product) => {
+              return <ProductCard product={product} key={product._id} />;
+            })}
+          </article>
+        ) : (
+          <h2>Sorry, Couldn't find any products</h2>
+        )}
         <Link
           to={"/shop"}
           className="inline-block my-10 uppercase font-bold text-xl md:text-2xl lg:text-3xl text-center"

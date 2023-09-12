@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import mongoose from "mongoose";
 import Product from "../models/product.js";
 export const createProduct = async (req: Request, res: Response) => {
   try {
@@ -38,7 +37,7 @@ export const deleteProduct = async (req: Request, res: Response) => {
 
 export const getFeaturedProducts = async (req: Request, res: Response) => {
   try {
-    const products = await Product.find({ isFeatured: true }).limit(6);
+    const products = await Product.find({ isFeatured: true }).limit(20);
     if (products.length === 0) {
       return res.status(404).json({
         message: "Products not found",
@@ -63,6 +62,23 @@ export const getProduct = async (req: Request, res: Response) => {
       });
     }
     return res.status(200).json(product);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      message: error,
+    });
+  }
+};
+
+export const getAll = async (req: Request, res: Response) => {
+  try {
+    const products = await Product.find().limit(50);
+    if (products.length === 0) {
+      return res.status(404).json({
+        message: "Products not found",
+      });
+    }
+    return res.status(200).json(products);
   } catch (error) {
     console.error(error);
     return res.status(500).json({

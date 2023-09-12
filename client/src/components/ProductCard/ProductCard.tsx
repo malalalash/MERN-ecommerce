@@ -1,13 +1,20 @@
 import { HeartIcon } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ProducsType } from "../../types";
 const ProductCard = ({ product }: { product: ProducsType }) => {
+  const location = useLocation();
+  const pathnames = location.pathname.split("/").filter((x) => x);
+
   return (
     <article
       key={product._id}
       className="bg-white relative z-10 w-full max-w-xs rounded-lg shadow-lg overflow-hidden flex flex-col mx-5 sm:mx-0"
     >
-      <Link to={`shop/${product.slug}`}>
+      <Link
+        to={`${pathnames.length > 0 ? `/${pathnames[0]}` : "shop"}/${
+          product.slug
+        }`}
+      >
         <img
           src={product.imageUrl}
           alt={product.name}
@@ -20,7 +27,12 @@ const ProductCard = ({ product }: { product: ProducsType }) => {
         </span>
       )}
       <div className="ml-5 my-5">
-        <Link to={`shop/${product.slug}`} className="font-semibold text-xl">
+        <Link
+          to={`${pathnames.length > 0 ? `/${pathnames[0]}` : "shop"}/${
+            product.slug
+          }`}
+          className="font-semibold text-xl"
+        >
           {product.name}
         </Link>
         <div className="gap-5 flex">
@@ -31,9 +43,7 @@ const ProductCard = ({ product }: { product: ProducsType }) => {
         <div>
           <span className="text-3xl font-bold">${product.price}</span>
           {product.isFeatured && (
-            <span className="line-through ml-2 text-sm">
-              ${(product.price * 0.8).toFixed(2)}
-            </span>
+            <span className="line-through ml-2 text-sm">${product.originalPrice}</span>
           )}
         </div>
         <button className="absolute bottom-0 right-0 m-4 mr-5 z-50 hover:bg-gray-50 hover:text-black/80 p-1">

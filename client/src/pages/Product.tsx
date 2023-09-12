@@ -31,12 +31,20 @@ const Product = () => {
             </div>
             <article className="bg-white h-full flex flex-col justify-between">
               <div className="border-b pb-2">
-                <h1 className="text-3xl md:text-4xl mb-1 font-extrabold">{product?.name}</h1>
+                <h1 className="text-3xl md:text-4xl mb-1 font-extrabold">
+                  {product?.name}
+                </h1>
                 <span>{product?.category}</span>
               </div>
-              <span className="text-2xl font-extrabold">
-                ${product?.price?.toFixed(2)}
-              </span>
+              <div>
+                <span className="text-3xl font-extrabold">
+                  ${product?.price?.toFixed(2)}
+                </span>
+                {product?.isFeatured && (
+                  <span className="line-through ml-2">${product.originalPrice?.toFixed(2)}</span>
+                )}
+              </div>
+
               <p className="tracking-wide leading-tighter font-mono break-words my-5 md:m-0">
                 {product?.description}
               </p>
@@ -68,7 +76,6 @@ const Product = () => {
                     className="border border-black"
                   />
                 </div>
-
                 <label className="text-lg" htmlFor="size">
                   Select size:
                 </label>

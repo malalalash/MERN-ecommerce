@@ -17,12 +17,10 @@ const Breadcrumbs = () => {
             {path}
           </li>
         ) : (
-          <>
-            <li className="text-blue-500 capitalize" key={p}>
-              <Link to={route}>{path}</Link>
-            </li>
-            <li>{separator}</li>
-          </>
+          <li className="text-blue-500 capitalize" key={p}>
+            <Link to={route}>{path}</Link>{" "}
+            <span className="text-black">{separator}</span>
+          </li>
         );
       })}
     </ul>
