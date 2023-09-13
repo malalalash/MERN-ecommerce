@@ -37,7 +37,10 @@ export const deleteProduct = async (req: Request, res: Response) => {
 
 export const getFeaturedProducts = async (req: Request, res: Response) => {
   try {
-    const products = await Product.find({ isFeatured: true }).limit(20);
+    const products = await Product.find({ isFeatured: true })
+      .limit(20)
+      .populate("category", "name")
+      .exec();
     if (products.length === 0) {
       return res.status(404).json({
         message: "Products not found",
@@ -72,24 +75,39 @@ export const getProduct = async (req: Request, res: Response) => {
 
 export const getAll = async (req: Request, res: Response) => {
   try {
-    const products = await Product.find().limit(50);
+    const page = Number(req.query.page) - 1 || 0;
+    const limit = Number(req.query.limit) || 20;
+    const search = req.query.search || "";
+    let sort = req.query.sort || "newest";
+    let filter;
+    let sortBy = {};
+
+    if (sort === "newest") {
+      sortBy = { createdAt: -1 };
+    } else if (sort === "asc") {
+      sortBy = { price: 1 };
+    } else if (sort === "desc") {
+      sortBy = { price: -1 };
+    } else {
+      filter = true;
+    }
+
+    const query = filter
+      ? { name: { $regex: search, $options: "i" }, isFeatured: filter }
+      : { name: { $regex: search, $options: "i" } };
+
+    const products = await Product.find(query)
+      .populate("category", "name")
+      .sort(sortBy)
+      .skip(page * limit)
+      .limit(limit);
     if (products.length === 0) {
       return res.status(404).json({
         message: "Products not found",
       });
     }
-    return res.status(200).json(products);
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      message: error,
-    });
-  }
-};
 
-export const getFilteredProducts = async (req: Request, res: Response) => {
-  try {
-    
+    res.status(200).json(products);
   } catch (error) {
     console.error(error);
     return res.status(500).json({

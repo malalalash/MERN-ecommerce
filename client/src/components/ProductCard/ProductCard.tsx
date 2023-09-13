@@ -1,7 +1,7 @@
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { Link, useLocation } from "react-router-dom";
-import { ProducsType } from "../../types";
-const ProductCard = ({ product }: { product: ProducsType }) => {
+import { ProductsType } from "../../types";
+const ProductCard = ({ product }: { product: ProductsType }) => {
   const location = useLocation();
   const pathnames = location.pathname.split("/").filter((x) => x);
 
@@ -43,7 +43,9 @@ const ProductCard = ({ product }: { product: ProducsType }) => {
         <div>
           <span className="text-3xl font-bold">${product.price}</span>
           {product.isFeatured && (
-            <span className="line-through ml-2 text-sm">${product.originalPrice}</span>
+            <span className="line-through ml-2 text-sm">
+              ${product.originalPrice}
+            </span>
           )}
         </div>
         <button className="absolute bottom-0 right-0 m-4 mr-5 z-50 hover:bg-gray-50 hover:text-black/80 p-1">

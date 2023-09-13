@@ -1,14 +1,14 @@
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getProduct } from "../api/products/getProduct";
-import { ProducsType } from "../types";
+import { ProductsType } from "../types";
 import { useScrollToTop } from "../hooks/useScrollToTop";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import Breadcrumbs from "../components/Breadcrumbs/Breadcrumbs";
 const Product = () => {
   useScrollToTop();
   const { slug } = useParams();
-  const { data: product, isLoading } = useQuery<ProducsType>({
+  const { data: product, isLoading } = useQuery<ProductsType>({
     queryKey: ["product", slug],
     queryFn: () => getProduct(slug as string),
   });

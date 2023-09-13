@@ -1,10 +1,13 @@
-export type ProducsType = {
+export type ProductsType = {
   _id: string;
   name: string;
   price: number;
   originalPrice: number;
   description: string;
-  category: string;
+  category: {
+    _id: string;
+    name: string;
+  };
   imageUrl: string;
   sizes: string[];
   colors: string[];

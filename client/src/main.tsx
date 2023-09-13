@@ -15,7 +15,7 @@ import Home from "./pages/Home";
 import Product from "./pages/Product";
 import Shop from "./pages/Shop";
 import About from "./pages/About";
-import { getAll } from "./api/products/getAll";
+
 
 const queryClient = new QueryClient();
 
@@ -23,7 +23,7 @@ const router = createBrowserRouter(
   createRoutesFromElements([
     <Route path="/" element={<RootLayout />}>
       <Route index={true} path="/" element={<Home />} loader={getFeatured} />
-      <Route path="shop" element={<Shop />} loader={getAll} />
+      <Route path="shop" element={<Shop />} />
       <Route path="about" element={<About />} />
       <Route path="shop/:slug" element={<Product />} />
     </Route>,
