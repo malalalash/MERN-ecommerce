@@ -5,6 +5,7 @@ import { useState } from "react";
 import { getAll } from "../api/products/getAll";
 import { useQuery } from "@tanstack/react-query";
 import RangeInput from "../components/RangeInput/RangeInput";
+
 const Shop = () => {
   useScrollToTop();
   const [sort, setSort] = useState("newest");

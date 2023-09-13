@@ -1,6 +1,7 @@
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { Link, useLocation } from "react-router-dom";
 import { ProductsType } from "../../types";
+
 const ProductCard = ({ product }: { product: ProductsType }) => {
   const location = useLocation();
   const pathnames = location.pathname.split("/").filter((x) => x);

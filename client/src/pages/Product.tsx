@@ -5,6 +5,7 @@ import { ProductsType } from "../types";
 import { useScrollToTop } from "../hooks/useScrollToTop";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import Breadcrumbs from "../components/Breadcrumbs/Breadcrumbs";
+
 const Product = () => {
   useScrollToTop();
   const { slug } = useParams();
@@ -42,7 +43,9 @@ const Product = () => {
                   ${product?.price?.toFixed(2)}
                 </span>
                 {product?.isFeatured && (
-                  <span className="line-through ml-2">${product.originalPrice?.toFixed(2)}</span>
+                  <span className="line-through ml-2">
+                    ${product.originalPrice?.toFixed(2)}
+                  </span>
                 )}
               </div>
 
