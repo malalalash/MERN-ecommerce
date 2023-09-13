@@ -18,3 +18,8 @@ export type ProductsType = {
   createdAt: string;
   updatedAt: string;
 };
+
+export interface RangeInputProps {
+  isRefetching: boolean;
+  setPrice: (price: number) => void;
+}

@@ -16,6 +16,7 @@ const Product = () => {
   if (isLoading) {
     return <div>Loading...</div>;
   }
+
   return (
     <section className="w-full">
       <article className="w-full max-w-5xl lg:max-w-6xl mx-auto">
@@ -34,7 +35,7 @@ const Product = () => {
                 <h1 className="text-3xl md:text-4xl mb-1 font-extrabold">
                   {product?.name}
                 </h1>
-                <span>{product?.category}</span>
+                <span>{product?.category.name}</span>
               </div>
               <div>
                 <span className="text-3xl font-extrabold">

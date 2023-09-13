@@ -4,22 +4,18 @@ import { ProductsType } from "../types";
 import { useState } from "react";
 import { getAll } from "../api/products/getAll";
 import { useQuery } from "@tanstack/react-query";
+import RangeInput from "../components/RangeInput/RangeInput";
 const Shop = () => {
   useScrollToTop();
-  const [value, setValue] = useState(1000);
   const [sort, setSort] = useState("newest");
+  const [price, setPrice] = useState(300);
 
-  const {
-    data: products,
-    isRefetching,
-    status,
-  } = useQuery<ProductsType[]>({
-    queryKey: ["products", sort],
-    queryFn: () => getAll(sort),
+  const { data: products, isRefetching } = useQuery<ProductsType[]>({
+    queryKey: ["products", sort, price],
+    queryFn: () => getAll(sort, price),
     keepPreviousData: true,
+    refetchOnWindowFocus: false,
   });
-
-  console.log(status);
 
   const handleChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedSort = e.target.value;
@@ -34,22 +30,9 @@ const Shop = () => {
         </h1>
         <div className="w-full">
           <div className="w-full max-w-5xl mx-auto flex flex-col md:flex-row px-5 lg:px-0 items-center justify-between mb-10">
-            <div className="flex items-start md:min-w-[300px] flex-col justify-start w-full md:w-auto">
-              <label htmlFor="range">Price</label>
-              <input
-                disabled={isRefetching}
-                className="w-full accent-neutral-800"
-                value={value}
-                id="range"
-                type="range"
-                min={0}
-                max={1000}
-                onChange={(e) => setValue(parseInt(e.target.value))}
-              />
-              <span>$0 - ${value}</span>
-            </div>
-            <div className="flex gap-3 md:min-w-[300px] items-center w-full mt-5 md:mt-0 md:w-auto">
-              <label htmlFor="sort" className="w-20">
+            <RangeInput isRefetching={isRefetching} setPrice={setPrice} />
+            <div className="flex gap-1 md:min-w-[300px] items-center w-full mt-5 md:mt-0 md:w-auto">
+              <label htmlFor="sort" className="w-20 font-semibold">
                 Sort by
               </label>
               <select
@@ -66,19 +49,21 @@ const Shop = () => {
               </select>
             </div>
           </div>
-          <article
-            className={`w-full mb-10 mx-auto max-w-5xl justify-center lg:justify-between items-center flex gap-5 flex-wrap ${
-              isRefetching ? "pointer-events-none opacity-50" : ""
-            }`}
-          >
-            {products?.map((product) => {
-              return (
-                value > product.price && (
-                  <ProductCard product={product} key={product._id} />
-                )
-              );
-            })}
-          </article>
+          {products!.length > 0 ? (
+            <article
+              className={`w-full mb-10 mx-auto max-w-5xl justify-center lg:justify-between items-center flex gap-5 flex-wrap ${
+                isRefetching ? "pointer-events-none opacity-50" : ""
+              }`}
+            >
+              {products?.map((product) => {
+                return <ProductCard product={product} key={product._id} />;
+              })}
+            </article>
+          ) : (
+            <h2 className="text-2xl mt-20 text-center">
+              Couldn't find any products
+            </h2>
+          )}
         </div>
       </div>
     </section>
