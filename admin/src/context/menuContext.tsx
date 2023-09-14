@@ -12,7 +12,6 @@ const MenuProvider = ({ children }: { children: React.ReactNode }) => {
 
   const handleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-    console.log(isMenuOpen);
   };
   return (
     <MenuContext.Provider value={{ isMenuOpen, handleMenu }}>
