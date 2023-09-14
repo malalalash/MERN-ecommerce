@@ -50,7 +50,7 @@ const Shop = () => {
               </select>
             </div>
           </div>
-          {products!.length > 0 ? (
+          {products && products?.length > 0 ? (
             <article
               className={`w-full mb-10 mx-auto max-w-5xl justify-center lg:justify-between items-center flex gap-5 flex-wrap ${
                 isRefetching ? "pointer-events-none opacity-50" : ""
