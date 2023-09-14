@@ -6,10 +6,8 @@ const RootLayout = () => {
   return (
     <div className="flex flex-row w-full overflow-hidden min-h-screen bg-white">
       <aside
-        className={`min-h-screen z-50 max-h-screen bg-white ${
-          isMenuOpen
-            ? ""
-            : "-translate-x-full sm:translate-x-0 transform transition-all duration-300"
+        className={`min-h-screen transform transition-all duration-300 z-50 max-h-screen bg-white ${
+          isMenuOpen ? "" : "-translate-x-full sm:translate-x-0"
         }`}
       >
         <NavBar />

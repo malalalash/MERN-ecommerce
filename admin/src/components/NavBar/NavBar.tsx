@@ -13,11 +13,11 @@ const NavBar = () => {
       }`}
     >
       <div className="flex items-center justify-between px-2">
-        <p className="text-center font-bold uppercase text-2xl">
+        <span className="text-center block font-bold uppercase text-2xl">
           MERN E-commerce
-        </p>
+        </span>
         {isMenuOpen && (
-          <button className="" onClick={handleMenu}>
+          <button onClick={handleMenu}>
             <XMarkIcon className="w-7 h-7" />
           </button>
         )}
