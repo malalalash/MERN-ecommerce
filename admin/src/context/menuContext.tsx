@@ -3,6 +3,7 @@ import { createContext, useState, useContext } from "react";
 interface IMenuContext {
   isMenuOpen: boolean;
   handleMenu: () => void;
+  setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const MenuContext = createContext<IMenuContext | null>(null);
@@ -14,7 +15,7 @@ const MenuProvider = ({ children }: { children: React.ReactNode }) => {
     setIsMenuOpen(!isMenuOpen);
   };
   return (
-    <MenuContext.Provider value={{ isMenuOpen, handleMenu }}>
+    <MenuContext.Provider value={{ isMenuOpen, handleMenu, setIsMenuOpen }}>
       {children}
     </MenuContext.Provider>
   );

@@ -9,8 +9,11 @@ import {
   Cog8ToothIcon,
   ShieldExclamationIcon,
 } from "@heroicons/react/24/outline";
+import { useMenu } from "../../context/menuContext";
 
 const NavBarMenu = () => {
+  const { setIsMenuOpen } = useMenu();
+
   return (
     <div className="min-h-full">
       <div className="p-2">
@@ -18,36 +21,60 @@ const NavBarMenu = () => {
         <nav className="border-b pb-2">
           <ul className="flex flex-col w-full gap-y-4">
             <li className="list-item group">
-              <NavLink className="nav-link" to="/">
+              <NavLink
+                className="nav-link"
+                onClick={() => setIsMenuOpen(false)}
+                to="/"
+              >
                 <PresentationChartBarIcon className="w-[24px] h-[24px]" />
                 Dashboard
               </NavLink>
             </li>
             <li className="list-item group">
-              <NavLink className="nav-link" to="/products">
+              <NavLink
+                className="nav-link"
+                onClick={() => setIsMenuOpen(false)}
+                to="/products"
+              >
                 <ShoppingBagIcon className="w-[24px] h-[24px]" /> Products
               </NavLink>
             </li>
             <li className="list-item group">
-              <NavLink className="nav-link" to="/add-product">
+              <NavLink
+                className="nav-link"
+                onClick={() => setIsMenuOpen(false)}
+                to="/add-product"
+              >
                 <PlusCircleIcon className="w-[24px] h-[24px]" />
                 Add product
               </NavLink>
             </li>
             <li className="list-item group">
-              <NavLink className="nav-link" to="/customers">
+              <NavLink
+                className="nav-link"
+                onClick={() => setIsMenuOpen(false)}
+                to="/customers"
+              >
                 <UserGroupIcon className="w-[24px] h-[24px]" />
                 Customers
               </NavLink>
             </li>
             <li className="list-item group">
-              <NavLink className="nav-link" to="/orders">
+              <NavLink
+                className="nav-link"
+                onClick={() => setIsMenuOpen(false)}
+                to="/orders"
+              >
                 <CircleStackIcon className="w-[24px] h-[24px]" />
                 Orders
               </NavLink>
             </li>
             <li className="list-item group">
-              <NavLink className="nav-link" to="/transactions">
+              <NavLink
+                className="nav-link"
+                onClick={() => setIsMenuOpen(false)}
+                to="/transactions"
+              >
                 <BanknotesIcon className="w-[24px] h-[24px]" />
                 Transactions
               </NavLink>
