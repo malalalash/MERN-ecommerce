@@ -19,4 +19,19 @@
   .nav-heading {
     @apply uppercase my-4 tracking-wide text-slate-600 ml-2 block;
   }
+
+  .box {
+    @apply bg-white w-full p-2;
+  }
+
+  .icon {
+    @apply w-12 h-12 rounded-full p-2;
+  }
+
+  .title {
+    @apply text-lg lg:text-xl;
+  }
+  .value {
+    @apply font-light lg:text-lg;
+  }
 }

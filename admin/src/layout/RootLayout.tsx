@@ -19,7 +19,9 @@ const RootLayout = () => {
         }`}
       >
         <Header />
-        <Outlet />
+        <section className="w-full min-h-screen bg-slate-100 p-5">
+          <Outlet />
+        </section>
       </main>
     </div>
   );
