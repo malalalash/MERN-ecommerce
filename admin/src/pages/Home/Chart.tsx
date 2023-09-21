@@ -61,7 +61,7 @@ const renderLinneChart = (
 const Chart = () => {
   return (
     <div className="bg-white border border-black/10 p-5 pb-10 h-[250px] sm:h-[350px] text-xs sm:text-base">
-      <span className="text-lg">Sales</span>
+      <span className="text-lg font-semibold">Sales</span>
       {renderLinneChart}
     </div>
   );

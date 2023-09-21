@@ -53,7 +53,7 @@ const Table = () => {
   return (
     <div className="w-full max-h-[350px] overflow-y-scroll p-5 border border-black/10 bg-white">
       <div className="w-full">
-        <h5 className="text-lg">Latest orders</h5>
+        <h5 className="text-lg font-semibold">Latest orders</h5>
         <div className="w-full overflow-x-auto block min-w-[600px]">
           <table className="w-full mt-2">
             <thead className="border-b-4 border-black/10 text-xs lg:text-base">

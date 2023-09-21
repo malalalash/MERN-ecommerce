@@ -49,7 +49,7 @@ const arrayOfProducts = [
 const TopSelling = () => {
   return (
     <div className="w-full bg-white p-5 overflow-y-scroll max-h-[350px] border border-black/10">
-      <h5 className="text-lg">Top selling products</h5>
+      <h5 className="text-lg font-semibold">Top selling products</h5>
       <div className="flex flex-col gap-5 mt-3">
         {arrayOfProducts.map((product) => (
           <div key={product.id} className="flex justify-between items-center">
