@@ -8,12 +8,12 @@ import {
 const Boxes = () => {
   return (
     <div className="w-full">
-      <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-5">
         <div className="box">
           <div className="flex items-center gap-3 ml-2">
             <CurrencyDollarIcon className="icon bg-blue-400/20 text-blue-700" />
             <div className="flex flex-col">
-              <span className="title">Total sales</span>
+              <span className="title">Total earnings</span>
               <span className="value">$1234</span>
             </div>
           </div>

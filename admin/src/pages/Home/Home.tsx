@@ -1,14 +1,17 @@
 import Boxes from "./Boxes";
-import { renderLinneChart } from "./Chart";
+import Chart from "./Chart";
+import Table from "./Table";
+import TopSelling from "./TopSelling";
 
 const Home = () => {
   return (
     <div className="grid grid-cols-1 gap-5">
       <Boxes />
-      <div className="bg-white p-5 pb-10 h-[250px] sm:h-[350px] text-xs sm:text-base max-w-3xl">
-        <span className="text-lg">Sales</span>
-        {renderLinneChart}
+      <div className="grid grid-cols-1 gap-5 xl:grid-cols-2 w-full">
+        <Chart />
+        <TopSelling />
       </div>
+      <Table />
     </div>
   );
 };

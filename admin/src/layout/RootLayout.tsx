@@ -5,17 +5,17 @@ import Header from "../components/Header/Header";
 const RootLayout = () => {
   const { isMenuOpen } = useMenu();
   return (
-    <div className="flex flex-row w-full overflow-hidden min-h-screen bg-white">
+    <div className="flex flex-row w-full min-h-screen bg-white">
       <aside
-        className={`min-h-screen transform transition-all duration-300 z-50 max-h-screen bg-white -translate-x-full sm:translate-x-0 ${
-          isMenuOpen ? "translate-x-0 absolute w-full" : "-translate-x-full"
+        className={`min-h-screen transform transition-all duration-300 z-50 max-h-screen bg-white -translate-x-full md:translate-x-0 ${
+          isMenuOpen ? "translate-x-0 w-full fixed" : "-translate-x-full"
         }`}
       >
         <NavBar />
       </aside>
       <main
         className={`w-full min-h-screen max-h-screen ${
-          isMenuOpen ? "" : "absolute sm:relative"
+          isMenuOpen ? "" : "absolute md:relative"
         }`}
       >
         <Header />
