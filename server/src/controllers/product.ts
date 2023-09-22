@@ -57,8 +57,8 @@ export const getFeaturedProducts = async (req: Request, res: Response) => {
 
 export const getProduct = async (req: Request, res: Response) => {
   try {
-    const { slug } = req.params;
-    const product = await Product.findOne({ slug })
+    const { slug, id } = req.params;
+    const product = await Product.findOne({ slug, id })
       .populate("category", "name")
       .exec();
     if (!product) {

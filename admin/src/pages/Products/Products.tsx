@@ -1,21 +1,17 @@
-import { useState, useEffect } from "react";
 import { getAll } from "../../api/products/getAll";
 import { ProductsType } from "../../types";
+import { useQuery } from "@tanstack/react-query";
 import Table from "./Table";
 
 const Products = () => {
-  const [products, setProducts] = useState<ProductsType[]>([]);
-
-  useEffect(() => {
-    getAll("newest", 300).then((data) => {
-      setProducts(data);
-      console.log(data);
-    });
-  }, []);
-
+  const { data: products } = useQuery<ProductsType[]>({
+    queryKey: ["products"],
+    queryFn: () => getAll("newest", 300),
+  });
+  console.log(products);
   return (
     <div className="flex flex-col gap-5 justify-center w-full overflow-auto">
-      <Table products={products} />
+      {products && <Table products={products} />}
     </div>
   );
 };

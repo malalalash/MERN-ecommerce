@@ -36,22 +36,25 @@ const Table = ({ products }: { products: ProductsType[] }) => {
             </tr>
           </thead>
           <tbody className="text-center text-xs sm:text-sm">
-            {products.map((product, i) => {
+            {products?.map((product, i) => {
               return (
                 <tr key={product._id} className="hover:bg-slate-50">
                   <td className="prod-table">{i + 1}</td>
                   <td className="prod-table">{product.name}</td>
-                  <td className="prod-table">{product.price}</td>
+                  <td className="prod-table">${product.price}</td>
                   <td className="prod-table">{product.category.name}</td>
                   <td className="prod-table">
                     {product.isFeatured ? "Yes" : "No"}
                   </td>
-                  <td className="prod-table">
-                    {product.sizes.map((size) => size).join(" ")}
+                  <td className="prod-table flex items-center justify-center gap-1">
+                    {product.sizes.map((size, i) => (
+                      <span key={i}>{size}</span>
+                    ))}
                   </td>
                   <td className="prod-table space-x-1">
-                    {product.colors.map((color) => (
+                    {product.colors.map((color, i) => (
                       <span
+                        key={i}
                         style={{ backgroundColor: color }}
                         className="sm:p-2 p-1 inline-block rounded-full"
                       ></span>
