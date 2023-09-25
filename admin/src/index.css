@@ -38,4 +38,11 @@
   .prod-table {
     @apply p-2 py-4;
   }
+
+  .form-title {
+    @apply capitalize font-semibold text-sm py-2;
+  }
+  .form-value {
+    @apply border border-gray-300 pl-2 appearance-none p-1.5 focus:outline-2 focus:outline-blue-500 rounded hover:border-gray-400 transition;
+  }
 }
