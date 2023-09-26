@@ -22,4 +22,15 @@ export type ProductsType = {
 export type CategoryType = {
   _id: string;
   name: string;
-}
+};
+
+export type FormDataType = {
+  name: string;
+  price: number;
+  description: string;
+  category: string;
+  sizes: string[];
+  colors: string[];
+  isFeatured: boolean;
+  quantity: number;
+};

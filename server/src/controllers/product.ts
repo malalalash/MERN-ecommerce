@@ -4,6 +4,21 @@ export const createProduct = async (req: Request, res: Response) => {
   try {
     const { name, price, description, category, imageUrl, sizes, colors } =
       req.body;
+    console.log(req.body);
+
+    if (
+      !name ||
+      !price ||
+      !description ||
+      !category ||
+      sizes.length === 0 ||
+      colors.length === 0
+    ) {
+      return res.status(400).json({
+        message: "All fields are required",
+        status: 400,
+      });
+    }
     const product = await Product.create({
       name,
       price,
@@ -112,7 +127,7 @@ export const getAll = async (req: Request, res: Response) => {
     if (!products) {
       return res.status(404).json({
         message: "Products not found",
-      })
+      });
     }
     res.status(200).json(products);
   } catch (error) {
