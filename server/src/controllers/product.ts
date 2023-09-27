@@ -2,9 +2,16 @@ import { Request, Response } from "express";
 import Product from "../models/product.js";
 export const createProduct = async (req: Request, res: Response) => {
   try {
-    const { name, price, description, category, imageUrl, sizes, colors } =
-      req.body;
-    console.log(req.body);
+    const {
+      name,
+      price,
+      description,
+      category,
+      isFeatured,
+      imageUrl,
+      sizes,
+      colors,
+    } = req.body;
 
     if (
       !name ||
@@ -24,6 +31,7 @@ export const createProduct = async (req: Request, res: Response) => {
       price,
       description,
       category,
+      isFeatured,
       imageUrl,
       sizes,
       colors,

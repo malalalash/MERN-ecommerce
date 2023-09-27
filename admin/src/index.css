@@ -45,4 +45,14 @@
   .form-value {
     @apply border border-gray-300 pl-2 appearance-none p-1.5 focus:outline-2 focus:outline-blue-500 rounded hover:border-gray-400 transition;
   }
+  .form-error {
+    @apply text-xs text-red-600 mt-1;
+  }
+
+  .btn-primary {
+    @apply bg-blue-600 p-1 sm:p-2 px-4 w-full hover:text-white hover:bg-blue-700 text-gray-50 transition rounded;
+  }
+  .btn-error {
+    @apply bg-red-500 p-1 sm:p-2 px-4 w-full hover:text-white hover:bg-red-600 text-gray-50 transition rounded;
+  }
 }

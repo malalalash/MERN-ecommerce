@@ -56,7 +56,7 @@ const Table = ({ products }: { products: ProductsType[] }) => {
                       <span
                         key={i}
                         style={{ backgroundColor: color }}
-                        className="sm:p-2 p-1 inline-block rounded-full"
+                        className="sm:p-2 border border-black p-1 inline-block rounded-full"
                       ></span>
                     ))}
                   </td>

@@ -4,6 +4,7 @@ import Category from "../models/category.js";
 export const createCategory = async (req: Request, res: Response) => {
   try {
     const { name } = req.body;
+    
     if (!name) {
       return res.status(400).json({
         message: "Category name is required",

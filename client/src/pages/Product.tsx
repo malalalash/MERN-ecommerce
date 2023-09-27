@@ -60,25 +60,11 @@ const Product = () => {
                       <button
                         value={color}
                         key={c}
-                        className="p-2.5 lg:p-3 rounded-full hover:outline outline-2"
+                        className="p-2.5 lg:p-3 rounded-full outline outline-2 hover:outline-[3px]"
                         style={{ background: color }}
                       ></button>
                     );
                   })}
-                </div>
-                <div className="flex items-center gap-3">
-                  <label htmlFor="quantity" className="lg:text-lg">
-                    Quantity:
-                  </label>
-                  <input
-                    type="number"
-                    name="quantity"
-                    id="quantity"
-                    defaultValue={1}
-                    min={1}
-                    max={10}
-                    className="border border-black"
-                  />
                 </div>
                 <label className="text-lg" htmlFor="size">
                   Select size:

@@ -1,10 +1,10 @@
-type ColourType = {
+export type ColourType = {
   readonly value: string;
   readonly label: string;
   readonly color: string;
 };
 
-type SizeType = {
+export type SizeType = {
   readonly value: string;
   readonly label: string;
 };

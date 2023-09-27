@@ -43,7 +43,7 @@ const ProductCard = ({ product }: { product: ProductsType }) => {
         </div>
         <div>
           <span className="text-3xl font-bold">${product.price}</span>
-          {product.isFeatured && (
+          {product.isFeatured && product.price !== product.originalPrice && (
             <span className="line-through ml-2 text-sm">
               ${product.originalPrice}
             </span>
