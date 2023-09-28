@@ -35,3 +35,13 @@ export type FormDataType = {
   isFeatured: boolean;
   quantity: number;
 };
+
+export type CategoryModalProps = {
+  categoryId: string;
+  setCategoryId: React.Dispatch<React.SetStateAction<string>>;
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+  handleDelete: (id: string) => void;
+  isEditing: boolean;
+  setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
+  
+};

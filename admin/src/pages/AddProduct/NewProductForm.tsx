@@ -63,6 +63,7 @@ const NewProductForm = ({
                 type="number"
                 id="price"
                 placeholder="$9.99"
+                step={"0.01"}
                 {...register("price", { required: true })}
               />
               {errors.price && (
