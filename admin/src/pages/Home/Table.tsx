@@ -43,6 +43,8 @@ const arrayOfObjects = [
     status: "Delivered",
   },
 ];
+
+const labels = ["#", "Product", "Date", "Price", "Status", "Action"];
 const Table = () => {
   const statusClass = (status: string) => {
     if (status === "Pending") return "bg-blue-100 text-blue-800";
@@ -58,12 +60,11 @@ const Table = () => {
           <table className="w-full mt-2">
             <thead className="border-b-4 border-black/10 text-xs lg:text-base">
               <tr>
-                <th>#</th>
-                <th>Product</th>
-                <th>Date</th>
-                <th>Price</th>
-                <th>Status</th>
-                <th>Action</th>
+                {labels.map((label, i) => (
+                  <th key={i} className="p-2 md:p-3">
+                    {label}
+                  </th>
+                ))}
               </tr>
             </thead>
             <tbody className="text-center text-xs lg:text-base">

@@ -22,6 +22,7 @@ export type ProductsType = {
 export type CategoryType = {
   _id: string;
   name: string;
+  createdAt: string;
 };
 
 export type FormDataType = {

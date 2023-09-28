@@ -2,8 +2,16 @@ import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { CategoryType } from "../../types";
 import { addCategory } from "../../api/category/addCategory";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 const NewCategory = () => {
   const [openModal, setOpenModal] = useState(false);
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation(addCategory, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["category"]);
+    },
+  });
+
   const {
     register,
     handleSubmit,
@@ -12,10 +20,9 @@ const NewCategory = () => {
   } = useForm<CategoryType>();
 
   const onSubmit: SubmitHandler<CategoryType> = async (data) => {
-    await addCategory(data);
+    mutate(data);
     handleModal();
   };
-  console.log(errors);
   const handleModal = () => {
     setOpenModal(!openModal);
     reset();
@@ -33,9 +40,9 @@ const NewCategory = () => {
       {openModal && (
         <div className="fixed px-5 flex items-center justify-center z-50 top-0 left-0 w-full min-h-screen bg-black/50">
           <div className="bg-white border border-slate-500 w-full max-w-xl p-3">
-            <h3 className="text-xl md:text-2xl font-semibold mb-2">
+            <h4 className="text-xl md:text-2xl font-semibold mb-2">
               Add new category
-            </h3>
+            </h4>
             <form
               onSubmit={handleSubmit(onSubmit)}
               className="flex flex-col gap-3"

@@ -8,7 +8,7 @@ const Products = () => {
     queryKey: ["products"],
     queryFn: () => getAll("newest", 300),
   });
-  console.log(products);
+  
   return (
     <div className="flex flex-col gap-5 justify-center w-full overflow-auto">
       {products && <Table products={products} />}
