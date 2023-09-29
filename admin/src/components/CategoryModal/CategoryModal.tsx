@@ -1,9 +1,9 @@
 import { updateCategory } from "../../api/category/updateCategory";
-import { CategoryModalProps } from "../../types";
+import { CategoryModalProps, CategoryType } from "../../types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
-const CategoryModal: React.FC<CategoryModalProps> = ({
+import { useForm, SubmitHandler } from "react-hook-form";
 
+const CategoryModal: React.FC<CategoryModalProps> = ({
   categoryId,
   setCategoryId,
   setOpenModal,
@@ -11,7 +11,15 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
   isEditing,
   setIsEditing,
 }) => {
-  const [newCategoryName, setNewCategoryName] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<CategoryType>();
+
+  const onSubmit: SubmitHandler<CategoryType> = (data) => {
+    handleUpdate(categoryId, data.name);
+  };
 
   const queryClient = useQueryClient();
   const { mutate } = useMutation(updateCategory, {
@@ -20,7 +28,6 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
       setIsEditing(false);
       setOpenModal(false);
       setCategoryId("");
- 
     },
   });
 
@@ -32,12 +39,7 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
       <div className="bg-white border border-slate-500 w-full max-w-xl p-3">
         {isEditing ? (
           <>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleUpdate(categoryId, newCategoryName);
-              }}
-            >
+            <form onSubmit={handleSubmit(onSubmit)}>
               <div className="w-full flex flex-col items-center justify-center gap-2">
                 <label
                   htmlFor="name"
@@ -46,11 +48,24 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
                   Edit ategory name
                 </label>
                 <input
-                  value={newCategoryName}
-                  onChange={(e) => setNewCategoryName(e.target.value)}
                   type="text"
                   className="w-full max-w-xs form-value"
+                  {...register("name", {
+                    required: true,
+                    maxLength: 100,
+                    pattern: {
+                      value: /^[a-zA-Z-]+$/,
+                      message: "Only letters are allowed",
+                    },
+                  })}
                 />
+                {errors.name && (
+                  <p className="form-error">
+                    {errors.name.message
+                      ? errors.name.message
+                      : "This field is required"}
+                  </p>
+                )}
               </div>
               <div className="flex items-center justify-center gap-2 mt-4 pb-2">
                 <button type="submit" className="btn-primary max-w-[100px] p-1">
@@ -61,7 +76,6 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
                     setIsEditing(false);
                     setOpenModal(false);
                     setCategoryId("");
-                    
                   }}
                   className="btn-error max-w-[100px] p-1"
                 >
