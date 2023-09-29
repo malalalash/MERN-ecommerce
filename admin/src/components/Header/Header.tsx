@@ -13,13 +13,13 @@ const Header = () => {
   const title =
     location.pathname === "/"
       ? "Dashboard"
-      : location.pathname.slice(1).replace(/-/g, " ");
+      : location.pathname.split("/")[1].replace("-", " ");
 
   return (
     <header className="border-b h-20">
       <div className="flex w-full h-full items-center justify-between mx-auto px-3 lg:ml-0">
         <div className="flex items-center">
-          <button onClick={handleMenu} className="md:hidden">
+          <button onClick={handleMenu} className="lg:hidden">
             <Bars3Icon className="w-7 h-7" />
           </button>
           <h1 className="capitalize text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold p-2 m-2">

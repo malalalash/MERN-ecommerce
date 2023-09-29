@@ -34,6 +34,7 @@ export type FormDataType = {
   colors: string[];
   isFeatured: boolean;
   quantity: number;
+  inStock: boolean;
 };
 
 export type CategoryModalProps = {
@@ -43,5 +44,4 @@ export type CategoryModalProps = {
   handleDelete: (id: string) => void;
   isEditing: boolean;
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
-  
 };

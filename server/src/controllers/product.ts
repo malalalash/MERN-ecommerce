@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Product from "../models/product.js";
+import mongoose from "mongoose";
 export const createProduct = async (req: Request, res: Response) => {
   try {
     const {
@@ -80,10 +81,19 @@ export const getFeaturedProducts = async (req: Request, res: Response) => {
 
 export const getProduct = async (req: Request, res: Response) => {
   try {
-    const { slug, id } = req.params;
-    const product = await Product.findOne({ slug, id })
+    const { identifier } = req.params;
+    let query;
+
+    if (mongoose.Types.ObjectId.isValid(identifier)) {
+      query = { _id: identifier };
+    } else {
+      query = { slug: identifier };
+    }
+
+    const product = await Product.findOne(query)
       .populate("category", "name")
       .exec();
+
     if (!product) {
       return res.status(404).json({
         message: "Product not found",

@@ -1,8 +1,8 @@
 import baseURL from "../../utils/baseURL";
 
-export const getProduct = async (slug: string) => {
+export const getProduct = async (id: string) => {
   try {
-    const response = await fetch(`${baseURL}/product/${slug}`, {
+    const response = await fetch(`${baseURL}/product/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

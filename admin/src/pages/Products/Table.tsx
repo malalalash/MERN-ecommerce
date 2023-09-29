@@ -1,5 +1,6 @@
+import { Link } from "react-router-dom";
 import { ProductsType } from "../../types";
-
+import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
 const labels = [
   "#",
   "Product",
@@ -14,7 +15,7 @@ const labels = [
 const Table = ({ products }: { products: ProductsType[] }) => {
   return (
     <>
-      <div>
+      <div className="max-w-xs">
         <label htmlFor="search" className="sr-only"></label>
         <input
           placeholder="Search"
@@ -24,7 +25,7 @@ const Table = ({ products }: { products: ProductsType[] }) => {
           className="p-2 min-w-[300px] border border-black/10 w-full sm:w-auto"
         />
       </div>
-      <div className="bg-white w-full overflow-x-auto block min-w-[700px] md:min-w-[900px]">
+      <div className="bg-white w-full min-w-[800px]">
         <table className="w-full border border-black/10">
           <thead className="border text-center text-xs sm:text-sm">
             <tr>
@@ -65,8 +66,12 @@ const Table = ({ products }: { products: ProductsType[] }) => {
                   </td>
                   <td className="prod-table">
                     <div className="flex items-center justify-center gap-2">
-                      <span>Edit</span>
-                      <span>Delete</span>
+                      <Link to={"/products/" + product._id}>
+                        <PencilSquareIcon className="inline-block text-green-700 hover:text-green-800 w-4 h-4 sm:w-5 sm:h-5" />
+                      </Link>
+                      <button>
+                        <TrashIcon className="inline-block text-red-600 hover:text-red-800 w-4 h-4 sm:w-5 sm:h-5" />
+                      </button>
                     </div>
                   </td>
                 </tr>

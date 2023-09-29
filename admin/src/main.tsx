@@ -18,13 +18,21 @@ import AddProduct from "./pages/AddProduct/AddProduct";
 import Customers from "./pages/Customers/Customers";
 import Orders from "./pages/Orders/Orders";
 import Transactions from "./pages/Transactions/Transactions";
+import Product from "./pages/Product/Product";
+import { getCategories } from "./api/category/getCategories";
 
 const queryClient = new QueryClient();
+
 const router = createBrowserRouter(
   createRoutesFromElements([
     <Route path="/" element={<RootLayout />}>
       <Route index={true} path="/" element={<Home />} />
       <Route path={"products"} element={<Products />} />
+      <Route
+        path={"products/:productId"}
+        element={<Product />}
+        loader={getCategories}
+      />
       <Route path={"add-product"} element={<AddProduct />} />
       <Route path={"customers"} element={<Customers />} />
       <Route path={"orders"} element={<Orders />} />

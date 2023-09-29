@@ -7,7 +7,7 @@ const RootLayout = () => {
   return (
     <div className="flex flex-row w-full min-h-screen bg-white">
       <aside
-        className={`min-h-screen transform transition-all duration-300 z-50 max-h-screen bg-white -translate-x-full md:translate-x-0 ${
+        className={`min-h-screen transform transition-all duration-300 z-50 max-h-screen bg-white -translate-x-full lg:translate-x-0 ${
           isMenuOpen ? "translate-x-0 w-full fixed" : "-translate-x-full"
         }`}
       >
@@ -15,7 +15,7 @@ const RootLayout = () => {
       </aside>
       <main
         className={`w-full min-h-screen max-h-screen ${
-          isMenuOpen ? "" : "absolute md:relative"
+          isMenuOpen ? "" : "absolute lg:relative"
         }`}
       >
         <Header />

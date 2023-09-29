@@ -34,11 +34,11 @@ const NewProductForm = ({
       </div>
       <div className="mt-1 text-sm sm:text-base">
         <form
-          className="border relative border-black/10 bg-white p-5 grid grid-cols-1 lg:grid-cols-2"
+          className="border relative border-black/10 bg-white p-5 grid grid-cols-1 md:grid-cols-2 md:gap-5"
           id="form"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className="flex flex-col gap-3 lg:mr-6">
+          <div className="flex flex-col gap-3">
             <div className="flex flex-col">
               <label htmlFor="name" className="form-title">
                 Name
@@ -108,7 +108,7 @@ const NewProductForm = ({
               )}
             </div>
           </div>
-          <div className="flex flex-col gap-3 lg:ml-6">
+          <div className="flex flex-col gap-3">
             <div className="flex flex-col">
               <label htmlFor="featured" className="form-title">
                 Featured?
@@ -202,7 +202,7 @@ const NewProductForm = ({
             <button
               disabled={isSubmitting}
               type="submit"
-              className="btn-primary lg:max-w-[170px] mt-5"
+              className="btn-primary md:max-w-[170px] mt-5"
             >
               Add
             </button>
