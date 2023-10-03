@@ -32,7 +32,7 @@ const NewCategory = () => {
     <>
       <button
         onClick={handleModal}
-        className="btn-primary text-sm p-1 md:text-base"
+        className="btn-primary text-sm p-1 md:text-base max-w-[100px] sm:max-w-[150px] truncate"
       >
         New category
       </button>

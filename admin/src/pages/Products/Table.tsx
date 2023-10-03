@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { ProductsType } from "../../types";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
+import { deleteProduct } from "../../api/products/deleteProduct";
+import { useQueryClient } from "@tanstack/react-query";
 const labels = [
   "#",
   "Product",
@@ -12,7 +14,14 @@ const labels = [
   "In stock",
   "Actions",
 ];
+
 const Table = ({ products }: { products: ProductsType[] }) => {
+  const queryClient = useQueryClient();
+
+  const handleDelete = async (id: string) => {
+    await deleteProduct(id);
+    queryClient.invalidateQueries(["products"]);
+  };
   return (
     <>
       <div className="max-w-xs">
@@ -69,7 +78,7 @@ const Table = ({ products }: { products: ProductsType[] }) => {
                       <Link to={"/products/" + product._id}>
                         <PencilSquareIcon className="inline-block text-green-700 hover:text-green-800 w-4 h-4 sm:w-5 sm:h-5" />
                       </Link>
-                      <button>
+                      <button onClick={() => handleDelete(product._id)}>
                         <TrashIcon className="inline-block text-red-600 hover:text-red-800 w-4 h-4 sm:w-5 sm:h-5" />
                       </button>
                     </div>

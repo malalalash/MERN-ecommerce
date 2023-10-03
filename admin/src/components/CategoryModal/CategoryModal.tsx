@@ -14,6 +14,7 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<CategoryType>();
 
@@ -33,6 +34,7 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
 
   const handleUpdate = (id: string, name: string) => {
     mutate({ id, name });
+    reset();
   };
   return (
     <div className="w-full px-5 flex items-center justify-center h-full fixed bg-black/50 top-0 left-0 z-50">
@@ -42,13 +44,14 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="w-full flex flex-col items-center justify-center gap-2">
                 <label
-                  htmlFor="name"
+                  htmlFor="edit-category-name"
                   className="text-xl md:text-2xl font-semibold mb-2 text-center"
                 >
                   Edit ategory name
                 </label>
                 <input
                   type="text"
+                  id="edit-category-name"
                   className="w-full max-w-xs form-value"
                   {...register("name", {
                     required: true,

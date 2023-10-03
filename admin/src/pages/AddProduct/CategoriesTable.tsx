@@ -1,9 +1,10 @@
-import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { CategoryType } from "../../types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteCategory } from "../../api/category/deleteCategory";
 import { useState } from "react";
 import CategoryModal from "../../components/CategoryModal/CategoryModal";
+import NewCategory from "./NewCategory";
 
 const labels = ["#", "Name", "Date", "Actions"];
 const CategoriesTable = ({
@@ -27,13 +28,18 @@ const CategoriesTable = ({
     setOpenModal(false);
   };
 
-  
   return (
     <div className="overflow-x-auto">
-      <h3 className="font-bold sm:text-xl mt-2">Manage categories</h3>
-      <span className="text-xs sm:text-sm">
-        Here you can delete or edit categories
-      </span>
+      <div className="flex flex-row w-full items-center justify-between">
+        <div className="flex flex-col flex-wrap pr-5 sm:pr-0">
+          <h3 className="font-bold sm:text-xl">Manage categories</h3>
+          <span className="text-xs sm:text-sm">
+            Here you can delete or edit categories
+          </span>
+        </div>
+        <NewCategory />
+      </div>
+
       <div className="bg-white w-full overflow-x-auto block mt-2 min-w-[600px]">
         <table className="w-full border border-black/10">
           <thead className="border text-center text-xs sm:text-sm">
@@ -60,18 +66,18 @@ const CategoriesTable = ({
                       setOpenModal(true);
                       setCategoryId(category._id);
                     }}
-                    className="hover:bg-slate-200 p-1"
+                    className="p-1"
                   >
-                    <PencilSquareIcon className="w-4 sm:w-5 h-4 sm:h-5 " />
+                    <PencilSquareIcon className="w-4 sm:w-5 h-4 sm:h-5 text-green-700 hover:text-green-800" />
                   </button>
                   <button
                     onClick={() => {
                       setCategoryId(category._id);
                       setOpenModal(true);
                     }}
-                    className="hover:bg-slate-200 p-1"
+                    className="p-1"
                   >
-                    <TrashIcon className="w-4 sm:w-5 h-4 sm:h-5" />
+                    <TrashIcon className="w-4 sm:w-5 h-4 sm:h-5 text-red-600 hover:text-red-800" />
                   </button>
                 </td>
               </tr>

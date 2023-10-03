@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Product from "../models/product.js";
 import mongoose from "mongoose";
+import { slugify } from "../utils/slugify.js";
 export const createProduct = async (req: Request, res: Response) => {
   try {
     const {
@@ -12,6 +13,7 @@ export const createProduct = async (req: Request, res: Response) => {
       imageUrl,
       sizes,
       colors,
+      quantity,
     } = req.body;
 
     if (
@@ -36,6 +38,7 @@ export const createProduct = async (req: Request, res: Response) => {
       imageUrl,
       sizes,
       colors,
+      stockQuantity: quantity,
     });
     res.status(201).json(product);
   } catch (error) {
@@ -148,6 +151,57 @@ export const getAll = async (req: Request, res: Response) => {
       });
     }
     res.status(200).json(products);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      message: error,
+    });
+  }
+};
+
+export const updateProduct = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const {
+      name,
+      price,
+      description,
+      category,
+      isFeatured,
+      imageUrl,
+      sizes,
+      colors,
+      inStock,
+    } = req.body;
+
+    if (
+      !name ||
+      !price ||
+      !description ||
+      !category ||
+      !isFeatured ||
+      !inStock ||
+      sizes.length === 0 ||
+      colors.length === 0
+    ) {
+      return res.status(400).json({
+        message: "All fields are required",
+        status: 400,
+      });
+    }
+    const updatedProduct = await Product.findByIdAndUpdate(id, {
+      name,
+      price,
+      description,
+      category,
+      isFeatured,
+      imageUrl,
+      sizes,
+      colors,
+      inStock,
+      slug: slugify(name),
+    });
+    return res.status(200).json(updatedProduct);
   } catch (error) {
     console.error(error);
     return res.status(500).json({

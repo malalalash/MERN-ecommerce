@@ -42,18 +42,19 @@ const Product = () => {
                 <span className="text-3xl font-extrabold">
                   ${product?.price?.toFixed(2)}
                 </span>
-                {product?.isFeatured && (
-                  <span className="line-through ml-2">
-                    ${product.originalPrice?.toFixed(2)}
-                  </span>
-                )}
+                {product?.isFeatured &&
+                  product.price !== product.originalPrice && (
+                    <span className="line-through ml-2">
+                      ${product.originalPrice?.toFixed(2)}
+                    </span>
+                  )}
               </div>
 
               <p className="tracking-wide leading-tighter font-mono break-words my-5 md:m-0">
                 {product?.description}
               </p>
               <div className="gap-2 flex flex-col">
-                <div className="flex items-center gap-5">
+                <div className="flex items-center gap-5 flex-wrap">
                   <p className="lg:text-lg">Select color:</p>
                   {product?.colors.map((color, c) => {
                     return (

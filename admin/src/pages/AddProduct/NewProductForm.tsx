@@ -3,13 +3,16 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { CategoryType, FormDataType } from "../../types";
 import Select from "react-select";
 import { addProduct } from "../../api/products/addProduct";
-import NewCategory from "./NewCategory";
-
+import { fileReader } from "../../utils/fileReader";
+import { useState } from "react";
 const NewProductForm = ({
   category,
 }: {
   category: CategoryType[] | undefined;
 }) => {
+  const [images, setImages] = useState<string[]>([]);
+  const [fileName, setFileName] = useState<string[]>([]);
+
   const {
     register,
     handleSubmit,
@@ -18,9 +21,25 @@ const NewProductForm = ({
     formState: { errors, isSubmitting },
   } = useForm<FormDataType>();
   const onSubmit: SubmitHandler<FormDataType> = async (data) => {
-    await addProduct(data);
-    reset();
+    // await addProduct(data);
+    // reset();
+    console.log(data);
   };
+
+  const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files;
+    console.log(file);
+    for (let i = 0; i < file?.length!; i++) {
+      if (file) {
+        fileReader(file[i]).then((result) => {
+          setImages((prev) => [...prev, result]);
+          // setFileName((prev) => [...prev, file[i].name]);
+        });
+      }
+    }
+    e.target.value = "";
+  };
+
   return (
     <>
       <div className="w-full items-center flex justify-between">
@@ -28,11 +47,8 @@ const NewProductForm = ({
           <h2 className="font-bold sm:text-xl">Basic information</h2>
           <span className="text-xs sm:text-sm">Fill all information below</span>
         </div>
-        <div>
-          <NewCategory />
-        </div>
       </div>
-      <div className="mt-1 text-sm sm:text-base">
+      <div className="mt-1 text-sm sm:text-base mb-2">
         <form
           className="border relative border-black/10 bg-white p-5 grid grid-cols-1 md:grid-cols-2 md:gap-5"
           id="form"
@@ -197,15 +213,51 @@ const NewProductForm = ({
                 <p className="form-error">This field is required</p>
               )}
             </div>
-          </div>
-          <div>
-            <button
-              disabled={isSubmitting}
-              type="submit"
-              className="btn-primary md:max-w-[170px] mt-5"
-            >
-              Add
-            </button>
+            <div className="flex flex-col">
+              <label htmlFor="image" className="form-title">
+                Images
+              </label>
+              <input
+                onChange={handleImage}
+                accept="image/png, image/jpeg, image/jpg"
+                type="file"
+                id="image"
+                multiple
+                className="form-value cursor-pointer file:cursor-pointer p-0 file:border-0 file:bg-blue-600 file:p-1 file:text-white file:hover:bg-blue-700"
+                // {...register("image", { required: true })}
+              />
+              {errors.image && (
+                <p className="form-error">This field is required</p>
+              )}
+            </div>
+            <div className="flex flex-col md:flex-row">
+              {images &&
+                images.map((image, i) => (
+                  <div key={i} className="w-full">
+                    <div className="relative max-w-[100px] max-h-[100px]">
+                      <img src={image} />
+                      <button
+                        onClick={() =>
+                          setImages((prev) => prev.filter((el) => el !== image))
+                        }
+                        className="absolute top-0 right-0"
+                      >
+                        X
+                      </button>
+                    </div>
+                    <p>{fileName}</p>
+                  </div>
+                ))}
+            </div>
+            <div className="min-w-[200px] w-full place-self-end">
+              <button
+                disabled={isSubmitting}
+                type="submit"
+                className="btn-primary mt-5 md:mt-2"
+              >
+                Add
+              </button>
+            </div>
           </div>
         </form>
       </div>
