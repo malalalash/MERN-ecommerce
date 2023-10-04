@@ -4,7 +4,7 @@ import { CategoryType, FormDataType } from "../../types";
 import Select from "react-select";
 import { addProduct } from "../../api/products/addProduct";
 import { fileReader } from "../../utils/fileReader";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { TrashIcon } from "@heroicons/react/24/solid";
 const NewProductForm = ({
   category,
@@ -13,7 +13,7 @@ const NewProductForm = ({
 }) => {
   const [images, setImages] = useState<string[]>([]);
   const [fileName, setFileName] = useState<string[]>([]);
-
+  const ref = useRef<HTMLInputElement>(null);
   const {
     register,
     handleSubmit,
@@ -22,13 +22,18 @@ const NewProductForm = ({
     formState: { errors, isSubmitting },
   } = useForm<FormDataType>();
   const onSubmit: SubmitHandler<FormDataType> = async (data) => {
-    // await addProduct(data);
-    // reset();
     const formData = {
       ...data,
-      images,
+      imagesUrls: images,
     };
     console.log(formData);
+    await addProduct(formData);
+    // setImages([]);
+    // setFileName([]);
+    if (ref.current) {
+      ref.current.value = "";
+    }
+    // reset();
   };
 
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -227,13 +232,13 @@ const NewProductForm = ({
                 Images
               </label>
               <input
+                ref={ref}
                 onChange={handleImage}
                 accept="image/png, image/jpeg, image/jpg"
                 type="file"
                 id="image"
                 multiple
                 className="form-value cursor-pointer file:cursor-pointer p-0 file:border-0 file:bg-blue-600 file:p-1 file:text-white file:hover:bg-blue-700"
-                // {...register("image", { required: true })}
               />
               {errors.image && (
                 <p className="form-error">This field is required</p>
@@ -257,8 +262,8 @@ const NewProductForm = ({
                   className="w-full flex flex-row col-span-2 justify-between items-center border p-2 border-dashed rounded-xl border-gray-400"
                 >
                   <div className="flex items-center gap-5">
-                    <div className="relative max-w-[80px] max-h-[80px]">
-                      <img src={image} className="w-full h-full object-cover" />
+                    <div className="w-[80px] h-[80px] overflow-hidden">
+                      <img src={image} className="object-cover w-full h-full" />
                     </div>
                     <div>
                       <p className="text-xs md:text-sm">{fileName[i]}</p>
@@ -269,7 +274,7 @@ const NewProductForm = ({
                     className="p-2"
                     onClick={() => handleDeleteImage(i)}
                   >
-                    <TrashIcon className="w-6 h-6 text-red-600 hover:text-red-700" />
+                    <TrashIcon className="w-5 sm:w-6 h-5 sm:h-6 text-red-600 hover:text-red-700" />
                   </button>
                 </div>
               ))}

@@ -2,7 +2,13 @@ import { Request, Response } from "express";
 import Product from "../models/product.js";
 import mongoose from "mongoose";
 import { slugify } from "../utils/slugify.js";
+import { uploadImages, resizeImage } from "../utils/cloudinary.js";
 export const createProduct = async (req: Request, res: Response) => {
+  type ImageType = {
+    url: string;
+    public_string: string;
+  };
+
   try {
     const {
       name,
@@ -10,7 +16,7 @@ export const createProduct = async (req: Request, res: Response) => {
       description,
       category,
       isFeatured,
-      imageUrl,
+      imagesUrls,
       sizes,
       colors,
       quantity,
@@ -29,18 +35,36 @@ export const createProduct = async (req: Request, res: Response) => {
         status: 400,
       });
     }
+    let imageUrl: ImageType[] = [];
+    if (imagesUrls) {
+      const response = await uploadImages(imagesUrls);
+      const resizedImages = await Promise.all(
+        response!.map((image) => resizeImage(image.public_id, 750, 750))
+      );
+
+      const publicIds = response!.map((image) => image.public_id);
+
+      imageUrl = resizedImages.map((url, i) => {
+        return {
+          url,
+          public_string: publicIds[i],
+        };
+      });
+      console.log(imageUrl);
+    }
+
     const product = await Product.create({
       name,
       price,
       description,
       category,
       isFeatured,
-      imageUrl,
+      images: imageUrl,
       sizes,
       colors,
       stockQuantity: quantity,
     });
-    res.status(201).json(product);
+    return res.status(201).json(product);
   } catch (error) {
     console.error(error);
     return res.status(500).json({

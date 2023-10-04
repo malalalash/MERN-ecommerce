@@ -27,12 +27,18 @@ const ProductSchema = new mongoose.Schema(
       required: true,
       ref: "Category",
     },
-    imageUrl: {
-      type: String,
-      required: true,
-      default:
-        "https://res.cloudinary.com/dmzqeouuh/image/upload/v1693993001/MERN%20ecommerce/placeholder_u9y98a.png",
-    },
+    images: [
+      {
+        url: {
+          type: String,
+          required: true,
+        },
+        public_string: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
     sizes: {
       type: [String],
       required: true,
