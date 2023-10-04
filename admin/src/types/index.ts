@@ -35,7 +35,7 @@ export type FormDataType = {
   isFeatured: boolean;
   quantity: number;
   inStock: boolean;
-  image: string;
+  image: string[];
 };
 
 export type CategoryModalProps = {

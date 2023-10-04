@@ -5,6 +5,7 @@ import Select from "react-select";
 import { addProduct } from "../../api/products/addProduct";
 import { fileReader } from "../../utils/fileReader";
 import { useState } from "react";
+import { TrashIcon } from "@heroicons/react/24/solid";
 const NewProductForm = ({
   category,
 }: {
@@ -23,21 +24,29 @@ const NewProductForm = ({
   const onSubmit: SubmitHandler<FormDataType> = async (data) => {
     // await addProduct(data);
     // reset();
-    console.log(data);
+    const formData = {
+      ...data,
+      images,
+    };
+    console.log(formData);
   };
 
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files;
-    console.log(file);
+
     for (let i = 0; i < file?.length!; i++) {
       if (file) {
         fileReader(file[i]).then((result) => {
           setImages((prev) => [...prev, result]);
-          // setFileName((prev) => [...prev, file[i].name]);
+          setFileName((prev) => [...prev, file[i].name]);
         });
       }
     }
-    e.target.value = "";
+  };
+
+  const handleDeleteImage = (index: number) => {
+    setImages((prev) => prev.filter((_, i) => i !== index));
+    setFileName((prev) => prev.filter((_, i) => i !== index));
   };
 
   return (
@@ -230,34 +239,40 @@ const NewProductForm = ({
                 <p className="form-error">This field is required</p>
               )}
             </div>
-            <div className="flex flex-col md:flex-row">
-              {images &&
-                images.map((image, i) => (
-                  <div key={i} className="w-full">
-                    <div className="relative max-w-[100px] max-h-[100px]">
-                      <img src={image} />
-                      <button
-                        onClick={() =>
-                          setImages((prev) => prev.filter((el) => el !== image))
-                        }
-                        className="absolute top-0 right-0"
-                      >
-                        X
-                      </button>
-                    </div>
-                    <p>{fileName}</p>
-                  </div>
-                ))}
-            </div>
             <div className="min-w-[200px] w-full place-self-end">
               <button
                 disabled={isSubmitting}
                 type="submit"
-                className="btn-primary mt-5 md:mt-2"
+                className="btn-primary mb-3 md:mt-1 md:mb-0"
               >
                 Add
               </button>
             </div>
+          </div>
+          <div className="flex flex-col gap-5 md:col-span-2">
+            {images &&
+              images.map((image, i) => (
+                <div
+                  key={i}
+                  className="w-full flex flex-row col-span-2 justify-between items-center border p-2 border-dashed rounded-xl border-gray-400"
+                >
+                  <div className="flex items-center gap-5">
+                    <div className="relative max-w-[80px] max-h-[80px]">
+                      <img src={image} className="w-full h-full object-cover" />
+                    </div>
+                    <div>
+                      <p className="text-xs md:text-sm">{fileName[i]}</p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    className="p-2"
+                    onClick={() => handleDeleteImage(i)}
+                  >
+                    <TrashIcon className="w-6 h-6 text-red-600 hover:text-red-700" />
+                  </button>
+                </div>
+              ))}
           </div>
         </form>
       </div>
