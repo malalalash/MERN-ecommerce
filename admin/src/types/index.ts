@@ -8,7 +8,13 @@ export type ProductsType = {
     _id: string;
     name: string;
   };
-  imageUrl: string;
+  images: [
+    {
+      _id: string;
+      url: string;
+      public_string: string;
+    }
+  ];
   sizes: string[];
   colors: string[];
   slug: string;

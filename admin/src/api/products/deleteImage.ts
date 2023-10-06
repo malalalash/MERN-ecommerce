@@ -1,14 +1,19 @@
 import baseURL from "../../utils/baseURL";
 
-export const deleteProduct = async (id: string, public_string: string[]) => {
+export const deleteImage = async (
+  id: string,
+  image_id: string,
+  public_string: string
+) => {
   try {
-    const response = await fetch(`${baseURL}/product/${id}`, {
+    const response = await fetch(`${baseURL}/product/image/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         public_string,
+        image_id,
       }),
     });
     const data = await response.json();

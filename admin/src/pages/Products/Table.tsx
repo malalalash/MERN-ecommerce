@@ -3,6 +3,8 @@ import { ProductsType } from "../../types";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { deleteProduct } from "../../api/products/deleteProduct";
 import { useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
+import Spinner from "../../components/Spinner/Spinner";
 const labels = [
   "#",
   "Product",
@@ -17,10 +19,12 @@ const labels = [
 
 const Table = ({ products }: { products: ProductsType[] }) => {
   const queryClient = useQueryClient();
-
-  const handleDelete = async (id: string) => {
-    await deleteProduct(id);
+  const [loading, setLoading] = useState(false);
+  const handleDelete = async (id: string, public_string: string[]) => {
+    setLoading(true);
+    await deleteProduct(id, public_string);
     queryClient.invalidateQueries(["products"]);
+    setLoading(false);
   };
   return (
     <>
@@ -78,8 +82,20 @@ const Table = ({ products }: { products: ProductsType[] }) => {
                       <Link to={"/products/" + product._id}>
                         <PencilSquareIcon className="inline-block text-green-700 hover:text-green-800 w-4 h-4 sm:w-5 sm:h-5" />
                       </Link>
-                      <button onClick={() => handleDelete(product._id)}>
-                        <TrashIcon className="inline-block text-red-600 hover:text-red-800 w-4 h-4 sm:w-5 sm:h-5" />
+                      <button
+                        disabled={loading}
+                        onClick={() =>
+                          handleDelete(
+                            product._id,
+                            product.images.map((image) => image.public_string)
+                          )
+                        }
+                      >
+                        {loading ? (
+                          <Spinner />
+                        ) : (
+                          <TrashIcon className="inline-block text-red-600 hover:text-red-800 w-4 h-4 sm:w-5 sm:h-5" />
+                        )}
                       </button>
                     </div>
                   </td>

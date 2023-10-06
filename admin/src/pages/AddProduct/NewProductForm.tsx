@@ -26,14 +26,13 @@ const NewProductForm = ({
       ...data,
       imagesUrls: images,
     };
-    console.log(formData);
     await addProduct(formData);
-    // setImages([]);
-    // setFileName([]);
+    setImages([]);
+    setFileName([]);
     if (ref.current) {
       ref.current.value = "";
     }
-    // reset();
+    reset();
   };
 
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,6 +63,7 @@ const NewProductForm = ({
       </div>
       <div className="mt-1 text-sm sm:text-base mb-2">
         <form
+        
           className="border relative border-black/10 bg-white p-5 grid grid-cols-1 md:grid-cols-2 md:gap-5"
           id="form"
           onSubmit={handleSubmit(onSubmit)}

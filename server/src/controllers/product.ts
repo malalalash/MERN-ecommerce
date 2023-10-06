@@ -2,7 +2,11 @@ import { Request, Response } from "express";
 import Product from "../models/product.js";
 import mongoose from "mongoose";
 import { slugify } from "../utils/slugify.js";
-import { uploadImages, resizeImage } from "../utils/cloudinary.js";
+import {
+  uploadImages,
+  resizeImage,
+  deleteImages,
+} from "../utils/cloudinary.js";
 export const createProduct = async (req: Request, res: Response) => {
   type ImageType = {
     url: string;
@@ -50,7 +54,6 @@ export const createProduct = async (req: Request, res: Response) => {
           public_string: publicIds[i],
         };
       });
-      console.log(imageUrl);
     }
 
     const product = await Product.create({
@@ -76,8 +79,12 @@ export const createProduct = async (req: Request, res: Response) => {
 export const deleteProduct = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
+    const { public_string }: { public_string: string[] } = req.body;
+    if (public_string) {
+      await deleteImages(public_string);
+    }
     await Product.findByIdAndDelete(id);
-    res.status(200).json({ message: "Product deleted" });
+    return res.status(200).json({ message: "Product deleted" });
   } catch (error) {
     console.error(error);
     return res.status(500).json({
@@ -192,7 +199,7 @@ export const updateProduct = async (req: Request, res: Response) => {
       description,
       category,
       isFeatured,
-      imageUrl,
+      images,
       sizes,
       colors,
       inStock,
@@ -219,13 +226,51 @@ export const updateProduct = async (req: Request, res: Response) => {
       description,
       category,
       isFeatured,
-      imageUrl,
+      images,
       sizes,
       colors,
       inStock,
       slug: slugify(name),
     });
     return res.status(200).json(updatedProduct);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      message: error,
+    });
+  }
+};
+
+export const deleteImageFromProduct = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { public_string, image_id } = req.body;
+    const product = await Product.findById(id);
+
+    if (!product) {
+      return res.status(404).json({
+        message: "Product not found",
+      });
+    }
+
+    if (public_string) {
+      const arr: string[] = [];
+      arr.push(public_string);
+      await deleteImages(arr);
+    }
+
+    const updatedProduct = await Product.findByIdAndUpdate(id, {
+      $pull: {
+        images: {
+          _id: image_id,
+        },
+      },
+    });
+
+    await product?.save();
+    return res.status(200).json({
+      updatedProduct,
+    });
   } catch (error) {
     console.error(error);
     return res.status(500).json({

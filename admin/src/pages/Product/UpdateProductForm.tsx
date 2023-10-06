@@ -6,6 +6,8 @@ import Select from "react-select";
 import { updateProduct } from "../../api/products/updateProduct";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
+import { TrashIcon } from "@heroicons/react/24/solid";
+import { deleteImage } from "../../api/products/deleteImage";
 
 const UpdateProductForm: React.FC<UpdateProductProps> = ({
   product,
@@ -29,6 +31,15 @@ const UpdateProductForm: React.FC<UpdateProductProps> = ({
     queryClient.invalidateQueries(["product", productId]);
     reset();
     navigate("/products");
+  };
+
+  const handleDeleteImage = async (
+    id: string,
+    image_id: string,
+    public_string: string
+  ) => {
+    await deleteImage(id, image_id, public_string);
+    queryClient.invalidateQueries(["product", productId]);
   };
 
   return (
@@ -203,16 +214,43 @@ const UpdateProductForm: React.FC<UpdateProductProps> = ({
               <option value="false">No</option>
             </select>
           </div>
+          <div>
+            <button
+              disabled={isSubmitting}
+              type="submit"
+              className="btn-primary w-full md:mt-0"
+            >
+              Update
+            </button>
+          </div>
         </div>
-        <div>
-          <button
-            disabled={isSubmitting}
-            type="submit"
-            className="btn-primary md:max-w-[170px] mt-5 md:mt-0"
-          >
-            Update
-          </button>
-        </div>
+        {product.images &&
+          product.images.map((image, i) => (
+            <div
+              key={i}
+              className="w-full flex flex-row justify-between items-center border p-2 border-dashed rounded-xl border-gray-400 mt-3 md:mt-0"
+            >
+              <div className="flex items-center gap-5">
+                <div className="w-[80px] h-[80px] overflow-hidden">
+                  <img src={image.url} className="object-cover w-full h-full" />
+                </div>
+                <div>Image {i + 1}</div>
+              </div>
+              <button
+                onClick={() =>
+                  handleDeleteImage(
+                    product._id,
+                    product.images[i]._id,
+                    product.images[i].public_string
+                  )
+                }
+                type="button"
+                className="p-2"
+              >
+                <TrashIcon className="w-5 sm:w-6 h-5 sm:h-6 text-red-600 hover:text-red-700" />
+              </button>
+            </div>
+          ))}
       </form>
     </>
   );
