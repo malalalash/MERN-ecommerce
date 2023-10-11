@@ -20,6 +20,8 @@ import Orders from "./pages/Orders/Orders";
 import Transactions from "./pages/Transactions/Transactions";
 import Product from "./pages/Product/Product";
 import { getCategories } from "./api/category/getCategories";
+import AuthLayout from "./layout/AuthLayout";
+import Register from "./pages/Register/Register";
 
 const queryClient = new QueryClient();
 
@@ -37,8 +39,8 @@ const router = createBrowserRouter(
       <Route path={"customers"} element={<Customers />} />
       <Route path={"orders"} element={<Orders />} />
       <Route path={"transactions"} element={<Transactions />} />
-      <Route path={"login"} element={<Login />} />
     </Route>,
+    <Route path={"login"} element={<Login />} />,
   ])
 );
 

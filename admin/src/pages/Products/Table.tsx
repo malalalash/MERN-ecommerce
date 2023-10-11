@@ -60,7 +60,7 @@ const Table = ({ products }: { products: ProductsType[] }) => {
                   <td className="prod-table">
                     {product?.isFeatured ? "Yes" : "No"}
                   </td>
-                  <td className="prod-table flex items-center justify-center gap-1">
+                  <td className="prod-table space-x-2">
                     {product?.sizes.map((size, i) => (
                       <span key={i}>{size}</span>
                     ))}

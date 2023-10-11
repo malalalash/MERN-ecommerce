@@ -7,7 +7,6 @@ cloudinary.config({
   secure: true,
 });
 
-
 export const uploadImages = async (images: string[]) => {
   const options = {
     use_filename: true,
@@ -19,7 +18,6 @@ export const uploadImages = async (images: string[]) => {
     const result = await Promise.all(
       images.map((image) => cloudinary.uploader.upload(image, options))
     );
-    console.log(result);
     return result;
   } catch (error) {
     console.error(error);
@@ -33,7 +31,6 @@ export const deleteImages = async (images: string[]) => {
         resource_type: "image",
       })
     );
-    console.log(result);
     return result;
   } catch (error) {
     console.error(error);

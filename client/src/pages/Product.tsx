@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getProduct } from "../api/products/getProduct";
 import { ProductsType } from "../types";
@@ -14,6 +15,12 @@ const Product = () => {
     queryFn: () => getProduct(slug as string),
   });
 
+  const [currentImage, setCurrentImage] = useState(product?.images[0].url);
+
+  useEffect(() => {
+    setCurrentImage(product?.images[0].url);
+  }, [product]);
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -23,15 +30,34 @@ const Product = () => {
       <article className="w-full max-w-5xl lg:max-w-6xl mx-auto">
         <div className="w-full px-5 mt-2">
           <Breadcrumbs />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-10">
-            <div className="w-full">
-              <img
-                src={product?.imageUrl}
-                alt={product?.name}
-                className="w-full max-h-96 lg:max-h-[450px] object-cover"
-              />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-1 md:gap-5 lg:gap-10 place-items-center lg:place-items-start">
+            <div className="flex flex-col gap-2">
+              <div className="w-full">
+                <img
+                  src={currentImage}
+                  alt={product?.name}
+                  className="w-full object-cover max-w-lg"
+                />
+              </div>
+              <div className="w-full flex flex-row items-center gap-2">
+                {product?.images.map((image) => {
+                  return (
+                    <img
+                      onClick={() => setCurrentImage(image.url)}
+                      src={image.url}
+                      alt={product?.name}
+                      key={image._id}
+                      className={`w-16 md:w-20 object-cover cursor-pointer ${
+                        currentImage === image.url
+                          ? "outline outline-1 rounded outline-black"
+                          : ""
+                      }`}
+                    />
+                  );
+                })}
+              </div>
             </div>
-            <article className="bg-white h-full flex flex-col justify-between">
+            <article className="bg-white h-full flex flex-col gap-5">
               <div className="border-b pb-2">
                 <h1 className="text-3xl md:text-4xl mb-1 font-extrabold">
                   {product?.name}
@@ -43,13 +69,12 @@ const Product = () => {
                   ${product?.price?.toFixed(2)}
                 </span>
                 {product?.isFeatured &&
-                  product.price !== product.originalPrice && (
+                  product.price < product.originalPrice && (
                     <span className="line-through ml-2">
                       ${product.originalPrice?.toFixed(2)}
                     </span>
                   )}
               </div>
-
               <p className="tracking-wide leading-tighter font-mono break-words my-5 md:m-0">
                 {product?.description}
               </p>

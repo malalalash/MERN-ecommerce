@@ -18,6 +18,7 @@ export const colors: readonly ColourType[] = [
   { value: "green", label: "Green", color: "#36B37E" },
   { value: "white", label: "White", color: "#FFFFFF" },
   { value: "gray", label: "Gray", color: "#868E96" },
+  { value: "black", label: "Black", color: "#000000" },
 ];
 
 export const sizes: readonly SizeType[] = [

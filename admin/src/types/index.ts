@@ -58,3 +58,17 @@ export type UpdateProductProps = {
   category: CategoryType[];
   productId: string | undefined;
 };
+
+export type UserFormType = {
+  email: string;
+  password: string;
+};
+
+export type UserType = {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  isAdmin: boolean;
+  avatar: string;
+};

@@ -6,7 +6,7 @@ import ProductCard from "../components/ProductCard/ProductCard";
 
 const Home = () => {
   const featured = useLoaderData() as ProductsType[];
- 
+
   return (
     <section className="w-full min-h-screen">
       <div className="w-full h-64 sm:h-80 lg:h-96 bg-black/50">
@@ -39,7 +39,15 @@ const Home = () => {
             </Link>
           </>
         ) : (
-          <h2>Sorry, Couldn't find any products</h2>
+          <>
+            <h2>Sorry, Couldn't find any products</h2>
+            <Link
+              to={"/shop"}
+              className="inline-block my-10 uppercase font-bold text-xl md:text-2xl lg:text-3xl text-center"
+            >
+              Shop All &#10148;
+            </Link>
+          </>
         )}
       </div>
     </section>

@@ -5,6 +5,7 @@ import { ProductsType } from "../../types";
 const ProductCard = ({ product }: { product: ProductsType }) => {
   const location = useLocation();
   const pathnames = location.pathname.split("/").filter((x) => x);
+  console.log(product);
 
   return (
     <article
@@ -17,7 +18,7 @@ const ProductCard = ({ product }: { product: ProductsType }) => {
         }`}
       >
         <img
-          src={product.imageUrl}
+          src={product.images[0].url}
           alt={product.name}
           className="h-60 object-cover w-full"
         />
@@ -42,10 +43,12 @@ const ProductCard = ({ product }: { product: ProductsType }) => {
           })}
         </div>
         <div>
-          <span className="text-3xl font-bold">${product.price}</span>
-          {product.isFeatured && product.price !== product.originalPrice && (
+          <span className="text-3xl font-bold">
+            ${product.price.toFixed(2)}
+          </span>
+          {product.isFeatured && product.price < product.originalPrice && (
             <span className="line-through ml-2 text-sm">
-              ${product.originalPrice}
+              ${product.originalPrice.toFixed(2)}
             </span>
           )}
         </div>
