@@ -2,10 +2,13 @@ import jwt from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
 import User from "../models/user.js";
 
-const authorize = async (req: Request, res: Response, next: NextFunction) => {
+export const authorize = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const token = req.cookies.token;
   const secret = process.env.JWT_SECRET as string;
-
   if (token) {
     try {
       const { id } = jwt.verify(token, secret) as {
@@ -38,5 +41,3 @@ const authorize = async (req: Request, res: Response, next: NextFunction) => {
     });
   }
 };
-
-export default authorize;

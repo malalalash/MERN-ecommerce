@@ -8,6 +8,7 @@ export const addProduct = async (formData: FormDataType) => {
         "Content-Type": "Application/json",
       },
       body: JSON.stringify(formData),
+      credentials: "include",
     });
     const data = await response.json();
     return data;

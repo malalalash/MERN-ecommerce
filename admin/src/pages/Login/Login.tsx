@@ -1,7 +1,16 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import { UserFormType, UserType } from "../../types";
-import { loginUser } from "../../api/user/loginUser";
+import { UserFormType } from "../../types";
+import { useAuth } from "../../context/authContext";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 const Login = () => {
+  const navigate = useNavigate();
+  const { login, user, authorize } = useAuth();
+
+  useEffect(() => {
+    user ? navigate("/") : authorize();
+  }, [user]);
+
   const {
     register,
     handleSubmit,
@@ -9,8 +18,7 @@ const Login = () => {
   } = useForm<UserFormType>();
 
   const onSubmit: SubmitHandler<UserFormType> = async (data) => {
-    const response: UserType = await loginUser(data);
-    console.log(response);
+    await login(data);
   };
 
   return (
@@ -22,6 +30,7 @@ const Login = () => {
       >
         <input
           type="email"
+          autoComplete="email"
           placeholder="Email"
           className="border border-black p-1 pl-2"
           {...register("email", { required: true })}

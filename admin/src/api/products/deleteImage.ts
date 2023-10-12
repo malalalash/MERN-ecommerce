@@ -15,6 +15,7 @@ export const deleteImage = async (
         public_string,
         image_id,
       }),
+      credentials: "include",
     });
     const data = await response.json();
     return data;

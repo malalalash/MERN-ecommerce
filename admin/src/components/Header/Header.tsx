@@ -5,15 +5,24 @@ import {
   ChevronDownIcon,
 } from "@heroicons/react/24/outline";
 import { useMenu } from "../../context/menuContext";
-import { useLocation } from "react-router-dom";
-
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/authContext";
+import { useState } from "react";
 const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { handleMenu } = useMenu();
+  const { user, logout } = useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
   const title =
     location.pathname === "/"
       ? "Dashboard"
       : location.pathname.split("/")[1].replace("-", " ");
+
+  const handleLogout = async () => {
+    await logout();
+    navigate("/login");
+  };
 
   return (
     <header className="border-b h-20">
@@ -38,12 +47,29 @@ const Header = () => {
           <div className="md:border-l px-4 flex items-center gap-1">
             <img
               className="rounded-full w-12 h-12 object-center object-cover"
-              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+              src={user?.avatar}
               alt="profile image"
             />
-            <button>
+            <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
               <ChevronDownIcon className="w-5 h-5" />
             </button>
+            {isMenuOpen && (
+              <ul className="absolute border rounded top-20 right-4 bg-white p-2 flex flex-col gap-2 shadow">
+                <li>
+                  <button className="hover:bg-black/10 p-1 px-4 rounded-md w-full">
+                    Profile
+                  </button>
+                </li>
+                <li>
+                  <button
+                    className="hover:bg-black/10 p-1 px-4 rounded-md w-full"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </button>
+                </li>
+              </ul>
+            )}
           </div>
         </div>
       </div>

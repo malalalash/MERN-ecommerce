@@ -8,7 +8,9 @@ export const updateProduct = async (formData: FormDataType, id: string) => {
         "Content-Type": "Application/json",
       },
       body: JSON.stringify(formData),
+      credentials: "include",
     });
+
     const data = await response.json();
     return data;
   } catch (error) {

@@ -10,6 +10,7 @@ export const deleteProduct = async (id: string, public_string: string[]) => {
       body: JSON.stringify({
         public_string,
       }),
+      credentials: "include",
     });
     const data = await response.json();
     return data;

@@ -21,6 +21,7 @@ const NewProductForm = ({
     reset,
     formState: { errors, isSubmitting },
   } = useForm<FormDataType>();
+
   const onSubmit: SubmitHandler<FormDataType> = async (data) => {
     const formData = {
       ...data,
@@ -36,13 +37,13 @@ const NewProductForm = ({
   };
 
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files;
+    const files = e.target.files;
 
-    for (let i = 0; i < file?.length!; i++) {
-      if (file) {
-        fileReader(file[i]).then((result) => {
+    for (let i = 0; i < files?.length!; i++) {
+      if (files) {
+        fileReader(files[i]).then((result) => {
           setImages((prev) => [...prev, result]);
-          setFileName((prev) => [...prev, file[i].name]);
+          setFileName((prev) => [...prev, files[i].name]);
         });
       }
     }
@@ -63,7 +64,6 @@ const NewProductForm = ({
       </div>
       <div className="mt-1 text-sm sm:text-base mb-2">
         <form
-        
           className="border relative border-black/10 bg-white p-5 grid grid-cols-1 md:grid-cols-2 md:gap-5"
           id="form"
           onSubmit={handleSubmit(onSubmit)}
@@ -263,7 +263,11 @@ const NewProductForm = ({
                 >
                   <div className="flex items-center gap-5">
                     <div className="w-[80px] h-[80px] overflow-hidden">
-                      <img src={image} className="object-cover w-full h-full" />
+                      <img
+                        src={image}
+                        className="object-cover w-full h-full"
+                        alt="thumbnail"
+                      />
                     </div>
                     <div>
                       <p className="text-xs md:text-sm">{fileName[i]}</p>

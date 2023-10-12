@@ -20,25 +20,27 @@ import Orders from "./pages/Orders/Orders";
 import Transactions from "./pages/Transactions/Transactions";
 import Product from "./pages/Product/Product";
 import { getCategories } from "./api/category/getCategories";
-import AuthLayout from "./layout/AuthLayout";
-import Register from "./pages/Register/Register";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import { AuthProvider } from "./context/authContext";
 
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter(
   createRoutesFromElements([
-    <Route path="/" element={<RootLayout />}>
-      <Route index={true} path="/" element={<Home />} />
-      <Route path={"products"} element={<Products />} />
-      <Route
-        path={"products/:productId"}
-        element={<Product />}
-        loader={getCategories}
-      />
-      <Route path={"add-product"} element={<AddProduct />} />
-      <Route path={"customers"} element={<Customers />} />
-      <Route path={"orders"} element={<Orders />} />
-      <Route path={"transactions"} element={<Transactions />} />
+    <Route element={<PrivateRoute />}>
+      <Route path="/" element={<RootLayout />}>
+        <Route index={true} path="/" element={<Home />} />
+        <Route path={"products"} element={<Products />} />
+        <Route
+          path={"products/:productId"}
+          element={<Product />}
+          loader={getCategories}
+        />
+        <Route path={"add-product"} element={<AddProduct />} />
+        <Route path={"customers"} element={<Customers />} />
+        <Route path={"orders"} element={<Orders />} />
+        <Route path={"transactions"} element={<Transactions />} />
+      </Route>
     </Route>,
     <Route path={"login"} element={<Login />} />,
   ])
@@ -47,9 +49,11 @@ const router = createBrowserRouter(
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <MenuProvider>
-        <RouterProvider router={router} />
-      </MenuProvider>
+      <AuthProvider>
+        <MenuProvider>
+          <RouterProvider router={router} />
+        </MenuProvider>
+      </AuthProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   </React.StrictMode>

@@ -10,7 +10,7 @@ const generateToken = (res: Response, payload: any) => {
 
   res.cookie("token", token, {
     httpOnly: true,
-    secure: false,
+    secure: true,
     sameSite: "none",
     maxAge: 24 * 60 * 60 * 1000,
     expires: new Date(Date.now() + 24 * 60 * 60 * 1000),

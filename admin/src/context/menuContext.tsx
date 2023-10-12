@@ -1,12 +1,7 @@
 import { createContext, useState, useContext } from "react";
+import { MenuContextType } from "../types";
 
-interface IMenuContext {
-  isMenuOpen: boolean;
-  handleMenu: () => void;
-  setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const MenuContext = createContext<IMenuContext | null>(null);
+const MenuContext = createContext<MenuContextType | null>(null);
 
 const MenuProvider = ({ children }: { children: React.ReactNode }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

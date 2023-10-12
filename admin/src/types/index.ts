@@ -72,3 +72,16 @@ export type UserType = {
   isAdmin: boolean;
   avatar: string;
 };
+
+export type UserContextType = {
+  user: UserType;
+  login: (data: UserFormType) => Promise<void>;
+  logout: () => Promise<void>;
+  authorize: () => Promise<void>;
+};
+
+export type MenuContextType = {
+  isMenuOpen: boolean;
+  handleMenu: () => void;
+  setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};

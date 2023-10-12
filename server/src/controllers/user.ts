@@ -59,6 +59,7 @@ export const createUser = async (req: Request, res: Response) => {
       password: hashedPassword,
       firstName,
       lastName,
+      isAdmin: false,
     });
 
     const payload = {
@@ -71,9 +72,7 @@ export const createUser = async (req: Request, res: Response) => {
     };
 
     generateToken(res, payload);
-    return res.status(201).json({
-      user: payload,
-    });
+    return res.status(201).json(payload);
   } catch (error) {
     console.error(error);
     res.status(500).json({
@@ -112,9 +111,7 @@ export const loginUser = async (req: Request, res: Response) => {
         avatar: isUser.avatar,
       };
       generateToken(res, payload);
-      return res.status(200).json({
-        user: payload,
-      });
+      return res.status(200).json(payload);
     } else {
       return res.status(400).json({
         message: "Invalid email or password",
@@ -126,4 +123,18 @@ export const loginUser = async (req: Request, res: Response) => {
       message: "Server error",
     });
   }
+};
+
+export const logoutUser = async (req: Request, res: Response) => {
+  res.cookie("token", "", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+    expires: new Date(0),
+    maxAge: 0,
+  });
+
+  res.status(200).json({
+    message: "Logged out successfully",
+  });
 };
