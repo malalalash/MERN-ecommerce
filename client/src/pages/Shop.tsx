@@ -24,7 +24,7 @@ const Shop = () => {
   };
 
   return (
-    <section className="w-full">
+    <section className="w-full px-2">
       <div className="flex flex-col items-center justify-center">
         <h1 className="inline-block my-10 uppercase font-bold text-xl md:text-2xl lg:text-3xl">
           All Products

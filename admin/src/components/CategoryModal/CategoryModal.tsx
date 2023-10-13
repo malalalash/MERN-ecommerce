@@ -50,6 +50,7 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
                   Edit ategory name
                 </label>
                 <input
+                  placeholder="Category name"
                   type="text"
                   id="edit-category-name"
                   className="w-full max-w-xs form-value"

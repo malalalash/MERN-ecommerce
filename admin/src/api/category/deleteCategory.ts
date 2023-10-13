@@ -7,6 +7,7 @@ export const deleteCategory = async (id: string) => {
       headers: {
         "Content-Type": "Application/json",
       },
+      credentials: "include",
     });
     const data = await response.json();
     return data;

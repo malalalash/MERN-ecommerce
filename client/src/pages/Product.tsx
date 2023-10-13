@@ -30,7 +30,7 @@ const Product = () => {
       <article className="w-full max-w-5xl lg:max-w-6xl mx-auto">
         <div className="w-full px-5 mt-2">
           <Breadcrumbs />
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-1 md:gap-5 lg:gap-10 place-items-center lg:place-items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-1 md:gap-5 lg:gap-10 place-items-start lg:place-items-start">
             <div className="flex flex-col gap-2">
               <div className="w-full">
                 <img
@@ -57,7 +57,7 @@ const Product = () => {
                 })}
               </div>
             </div>
-            <article className="bg-white h-full flex flex-col gap-5">
+            <article className="bg-white h-full flex flex-col gap-5 w-full">
               <div className="border-b pb-2">
                 <h1 className="text-3xl md:text-4xl mb-1 font-extrabold">
                   {product?.name}

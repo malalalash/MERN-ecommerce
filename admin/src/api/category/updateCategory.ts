@@ -14,6 +14,7 @@ export const updateCategory = async ({
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ name }),
+      credentials: "include",
     });
     const data = await response.json();
     return data;

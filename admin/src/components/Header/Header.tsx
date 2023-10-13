@@ -54,7 +54,7 @@ const Header = () => {
               <ChevronDownIcon className="w-5 h-5" />
             </button>
             {isMenuOpen && (
-              <ul className="absolute border rounded top-20 right-4 bg-white p-2 flex flex-col gap-2 shadow">
+              <ul className="absolute z-50 border rounded top-20 right-4 bg-white p-2 flex flex-col gap-2 shadow">
                 <li>
                   <button className="hover:bg-black/10 p-1 px-4 rounded-md w-full">
                     Profile

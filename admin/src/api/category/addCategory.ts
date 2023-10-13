@@ -9,6 +9,7 @@ export const addCategory = async (name: CategoryType) => {
         "Content-Type": "Application/json",
       },
       body: JSON.stringify(name),
+      credentials: "include",
     });
     const data = await response.json();
     return data;
