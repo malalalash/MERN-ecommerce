@@ -64,7 +64,9 @@ const NewProductForm = ({
       </div>
       <div className="mt-1 text-sm sm:text-base mb-2">
         <form
-          className="border relative border-black/10 bg-white p-5 grid grid-cols-1 md:grid-cols-2 md:gap-5"
+          className={`border relative border-black/10 bg-white p-5 grid grid-cols-1 md:grid-cols-2 md:gap-5 ${
+            isSubmitting ? "opacity-50" : ""
+          }`}
           id="form"
           onSubmit={handleSubmit(onSubmit)}
         >
@@ -74,6 +76,7 @@ const NewProductForm = ({
                 Name
               </label>
               <input
+                autoComplete="off"
                 className="form-value"
                 type="text"
                 id="name"
@@ -274,6 +277,7 @@ const NewProductForm = ({
                     </div>
                   </div>
                   <button
+                    disabled={isSubmitting}
                     type="button"
                     className="p-2"
                     onClick={() => handleDeleteImage(i)}

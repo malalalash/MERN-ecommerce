@@ -2,13 +2,13 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { sizes, SizeType, colors, ColourType } from "../../data/data";
 import { FormDataType } from "../../types";
 import { UpdateProductProps } from "../../types";
-import Select from "react-select";
 import { updateProduct } from "../../api/products/updateProduct";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { TrashIcon } from "@heroicons/react/24/solid";
 import { deleteImage } from "../../api/products/deleteImage";
-
+import { useState } from "react";
+import Select from "react-select";
 const UpdateProductForm: React.FC<UpdateProductProps> = ({
   product,
   category,
@@ -18,18 +18,19 @@ const UpdateProductForm: React.FC<UpdateProductProps> = ({
     register,
     handleSubmit,
     control,
-    reset,
     formState: { errors, isSubmitting },
   } = useForm<FormDataType>();
 
   const queryClient = useQueryClient();
-
   const navigate = useNavigate();
 
+  const [loading, setLoading] = useState(false);
+
   const onSubmit: SubmitHandler<FormDataType> = async (data) => {
+    setLoading(true);
     await updateProduct(data, productId!);
     queryClient.invalidateQueries(["product", productId]);
-    reset();
+    setLoading(false);
     navigate("/products");
   };
 
@@ -38,15 +39,19 @@ const UpdateProductForm: React.FC<UpdateProductProps> = ({
     image_id: string,
     public_string: string
   ) => {
+    setLoading(true);
     await deleteImage(id, image_id, public_string);
     queryClient.invalidateQueries(["product", productId]);
+    setLoading(false);
   };
 
   return (
     <>
       <h2 className="font-bold sm:text-xl mb-2">Edit Product</h2>
       <form
-        className="border relative border-black/10 bg-white p-5 grid grid-cols-1 md:grid-cols-2 md:gap-5"
+        className={`border relative border-black/10 bg-white p-5 grid grid-cols-1 md:grid-cols-2 md:gap-5 ${
+          isSubmitting ? "opacity-50" : ""
+        }`}
         id="form"
         onSubmit={handleSubmit(onSubmit)}
       >
@@ -56,6 +61,7 @@ const UpdateProductForm: React.FC<UpdateProductProps> = ({
               Name
             </label>
             <input
+              autoComplete="off"
               defaultValue={product?.name}
               className="form-value"
               type="text"
@@ -228,7 +234,9 @@ const UpdateProductForm: React.FC<UpdateProductProps> = ({
           product.images.map((image, i) => (
             <div
               key={i}
-              className="w-full flex flex-row justify-between items-center border p-2 border-dashed rounded-xl border-gray-400 mt-3 md:mt-0"
+              className={`w-full flex flex-row justify-between items-center border p-2 border-dashed rounded-xl border-gray-400 mt-3 md:mt-0 ${
+                loading ? "opacity-50" : ""
+              }`}
             >
               <div className="flex items-center gap-5">
                 <div className="w-[80px] h-[80px] overflow-hidden">
@@ -237,6 +245,7 @@ const UpdateProductForm: React.FC<UpdateProductProps> = ({
                 <div>Image {i + 1}</div>
               </div>
               <button
+                disabled={loading}
                 onClick={() =>
                   handleDeleteImage(
                     product._id,
