@@ -8,6 +8,7 @@ import { useState } from "react";
 import { useClickOutside } from "../../hooks/useClickOutside";
 import Social from "../Social/Social";
 import { NavLink, Link } from "react-router-dom";
+import { useCart } from "../../store/cartStore";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,6 +16,8 @@ const Header = () => {
   const toggleMenu = () => setIsOpen((prevIsOpen) => !prevIsOpen);
 
   useClickOutside(isOpen, setIsOpen, "#mobile-menu");
+
+  const { items } = useCart();
 
   return (
     <header className="border-b shadow">
@@ -65,10 +68,13 @@ const Header = () => {
           </div>
         </nav>
         <ul className="flex items-center justify-between gap-2 mt-1">
-          <li className="nav-link pt-1">
-            <button>
+          <li className="nav-link py-1 relative">
+            <Link to={"cart"}>
               <ShoppingCartIcon className="w-6 h-6" />
-            </button>
+            </Link>
+            <span className="absolute -top-1 -right-1.5 bg-red-600 text-white rounded-full w-4 h-4 text-sm flex items-center justify-center">
+              {items.length}
+            </span>
           </li>
           <li className="nav-link pt-1">
             <button>

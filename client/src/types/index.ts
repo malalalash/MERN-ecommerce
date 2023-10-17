@@ -27,3 +27,14 @@ export interface RangeInputProps {
   isRefetching: boolean;
   setPrice: (price: number) => void;
 }
+
+export interface CartStoreI {
+  items: ProductsType[];
+  addItem: (data: ProductsType) => void;
+  removeItem: (id: string) => void;
+  removeAll: () => void;
+}
+
+export type CartItemProps = {
+  data: ProductsType;
+};

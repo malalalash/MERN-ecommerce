@@ -15,7 +15,7 @@ import Home from "./pages/Home";
 import Product from "./pages/Product";
 import Shop from "./pages/Shop";
 import About from "./pages/About";
-
+import Cart from "./pages/Cart";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +26,7 @@ const router = createBrowserRouter(
       <Route path="shop" element={<Shop />} />
       <Route path="about" element={<About />} />
       <Route path="shop/:slug" element={<Product />} />
+      <Route path="cart" element={<Cart />} />
     </Route>,
   ])
 );

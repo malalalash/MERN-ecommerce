@@ -6,6 +6,8 @@ import { ProductsType } from "../types";
 import { useScrollToTop } from "../hooks/useScrollToTop";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import Breadcrumbs from "../components/Breadcrumbs/Breadcrumbs";
+import { useCart } from "../store/cartStore";
+import { MouseEventHandler } from "react";
 
 const Product = () => {
   useScrollToTop();
@@ -15,11 +17,17 @@ const Product = () => {
     queryFn: () => getProduct(slug as string),
   });
 
-  const [currentImage, setCurrentImage] = useState(product?.images[0].url);
-
   useEffect(() => {
     setCurrentImage(product?.images[0].url);
   }, [product]);
+
+  const { addItem } = useCart();
+
+  const [currentImage, setCurrentImage] = useState(product?.images[0].url);
+
+  const onAddToCart: MouseEventHandler<HTMLButtonElement> = () => {
+    addItem(product!);
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -109,7 +117,10 @@ const Product = () => {
                   })}
                 </select>
                 <div className="flex items-center gap-3">
-                  <button className="text-lg w-full py-2 uppercase font-semibold text-white bg-black hover:bg-gray-200 hover:text-black border border-black transition focus:text-black focus:bg-gray-200">
+                  <button
+                    onClick={onAddToCart}
+                    className="text-lg w-full py-2 uppercase font-semibold text-white bg-black hover:bg-gray-200 hover:text-black border border-black transition focus:text-black focus:bg-gray-200"
+                  >
                     Add to cart
                   </button>
                   <button className="border transition border-black p-2 hover:bg-gray-200 focus:bg-gray-200">
