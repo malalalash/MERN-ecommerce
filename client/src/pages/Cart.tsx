@@ -3,6 +3,7 @@ import { useCart } from "../store/cartStore";
 
 const Cart = () => {
   const { items } = useCart();
+
   return (
     <div className="bg-white">
       <div className="container mx-auto">

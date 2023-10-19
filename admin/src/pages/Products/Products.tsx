@@ -5,7 +5,7 @@ import Table from "./Table";
 const Products = () => {
   const { data: products } = useQuery({
     queryKey: ["products"],
-    queryFn: () => getAll("newest", 300),
+    queryFn: () => getAll("newest", 0),
   });
 
   return (

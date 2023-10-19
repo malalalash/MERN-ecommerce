@@ -5,7 +5,6 @@ import { ProductsType } from "../../types";
 const ProductCard = ({ product }: { product: ProductsType }) => {
   const location = useLocation();
   const pathnames = location.pathname.split("/").filter((x) => x);
-  console.log(product);
 
   return (
     <article
@@ -18,8 +17,8 @@ const ProductCard = ({ product }: { product: ProductsType }) => {
         }`}
       >
         <img
-          src={product.images[0].url}
-          alt={product.name}
+          src={product?.images[0].url}
+          alt={product?.name}
           className="h-60 object-cover w-full"
         />
       </Link>

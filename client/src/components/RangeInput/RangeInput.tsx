@@ -2,7 +2,7 @@ import { useState } from "react";
 import { RangeInputProps } from "../../types";
 
 const RangeInput: React.FC<RangeInputProps> = ({ isRefetching, setPrice }) => {
-  const [value, setValue] = useState(300);
+  const [value, setValue] = useState(999);
   return (
     <div className="flex items-start md:min-w-[300px] flex-col justify-start w-full md:w-auto">
       <label htmlFor="range" className="font-semibold">
@@ -13,7 +13,7 @@ const RangeInput: React.FC<RangeInputProps> = ({ isRefetching, setPrice }) => {
         id="range"
         type="range"
         min={0}
-        max={300}
+        max={999}
         onChange={(e) => setValue(parseInt(e.target.value))}
         value={value}
         disabled={isRefetching}

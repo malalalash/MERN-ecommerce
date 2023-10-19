@@ -24,9 +24,25 @@ const Product = () => {
   const { addItem } = useCart();
 
   const [currentImage, setCurrentImage] = useState(product?.images[0].url);
+  const [selectedSize, setSelectedSize] = useState("");
+  const [selectedColor, setSelectedColor] = useState("");
 
   const onAddToCart: MouseEventHandler<HTMLButtonElement> = () => {
-    addItem(product!);
+    if (!selectedColor || !selectedSize) {
+      return;
+    }
+    if (product) {
+      addItem({
+        _id: product._id,
+        stockQuantity: product.stockQuantity,
+        images: product.images,
+        name: product.name,
+        price: product.price,
+        category: product.category,
+        color: selectedColor,
+        size: selectedSize,
+      });
+    }
   };
 
   if (isLoading) {
@@ -51,10 +67,10 @@ const Product = () => {
                 {product?.images.map((image) => {
                   return (
                     <img
-                      onClick={() => setCurrentImage(image.url)}
+                      onClick={() => setCurrentImage(image?.url)}
                       src={image.url}
                       alt={product?.name}
-                      key={image._id}
+                      key={image?._id}
                       className={`w-16 md:w-20 object-cover cursor-pointer ${
                         currentImage === image.url
                           ? "outline outline-1 rounded outline-black"
@@ -92,9 +108,14 @@ const Product = () => {
                   {product?.colors.map((color, c) => {
                     return (
                       <button
+                        onClick={() => setSelectedColor(color)}
                         value={color}
                         key={c}
-                        className="p-2.5 lg:p-3 rounded-full outline outline-2 hover:outline-[3px]"
+                        className={`p-2.5 lg:p-3 rounded-full outline outline-2 ${
+                          selectedColor === color
+                            ? "outline-black outline-[3px]"
+                            : ""
+                        }`}
                         style={{ background: color }}
                       ></button>
                     );
@@ -104,10 +125,15 @@ const Product = () => {
                   Select size:
                 </label>
                 <select
+                  onChange={(e) => {
+                    setSelectedSize(e.target.value);
+                  }}
                   className="w-full border border-black p-2 cursor-pointer lg:text-lg"
                   name="size"
                   id="size"
+                  required
                 >
+                  <option value="">Select size</option>
                   {product?.sizes.map((size, s) => {
                     return (
                       <option key={s} className="lg:text-lg">

@@ -28,13 +28,31 @@ export interface RangeInputProps {
   setPrice: (price: number) => void;
 }
 
+type CartItem = {
+  name: string;
+  _id: string;
+  price: number;
+  size: string;
+  color: string;
+  stockQuantity: number;
+  category: {
+    _id: string;
+    name: string;
+  };
+  images: {
+    url: string;
+    public_string: string;
+    _id: string;
+  }[];
+};
+
 export interface CartStoreI {
-  items: ProductsType[];
-  addItem: (data: ProductsType) => void;
+  items: CartItem[];
+  addItem: (data: CartItem) => void;
   removeItem: (id: string) => void;
   removeAll: () => void;
 }
 
 export type CartItemProps = {
-  data: ProductsType;
+  data: CartItem;
 };

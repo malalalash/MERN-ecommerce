@@ -88,16 +88,23 @@ const NewProductForm = ({
               )}
             </div>
             <div className="flex flex-col">
-              <label htmlFor="price" className="form-title">
-                Price
-              </label>
+              <div>
+                <label htmlFor="price" className="form-title">
+                  Price
+                </label>
+                <span className="text-xs text-gray-500 ml-1">max $999</span>
+              </div>
               <input
                 className="form-value"
                 type="number"
                 id="price"
-                placeholder="$9.99"
+                placeholder="$99.99"
                 step={"0.01"}
-                {...register("price", { required: true })}
+                {...register("price", {
+                  required: true,
+                  max: 999,
+                  min: 0.1,
+                })}
               />
               {errors.price && (
                 <p className="form-error">This field is required</p>

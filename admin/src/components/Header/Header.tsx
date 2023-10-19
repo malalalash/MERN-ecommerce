@@ -8,6 +8,7 @@ import { useMenu } from "../../context/menuContext";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 import { useState } from "react";
+import { useClickOutside } from "../../hooks/useClickOutside";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { handleMenu } = useMenu();
@@ -23,6 +24,8 @@ const Header = () => {
     await logout();
     navigate("/login");
   };
+
+  useClickOutside(isMenuOpen, setIsMenuOpen, "#menu");
 
   return (
     <header className="border-b h-20">
@@ -54,7 +57,10 @@ const Header = () => {
               <ChevronDownIcon className="w-5 h-5" />
             </button>
             {isMenuOpen && (
-              <ul className="absolute z-50 border rounded top-20 right-4 bg-white p-2 flex flex-col gap-2 shadow">
+              <ul
+                id="menu"
+                className="absolute z-50 border rounded top-20 right-4 bg-white p-2 flex flex-col gap-2 shadow"
+              >
                 <li>
                   <button className="hover:bg-black/10 p-1 px-4 rounded-md w-full">
                     Profile

@@ -9,7 +9,7 @@ import RangeInput from "../components/RangeInput/RangeInput";
 const Shop = () => {
   useScrollToTop();
   const [sort, setSort] = useState("newest");
-  const [price, setPrice] = useState(300);
+  const [price, setPrice] = useState(999);
 
   const { data: products, isRefetching } = useQuery<ProductsType[]>({
     queryKey: ["products", sort, price],

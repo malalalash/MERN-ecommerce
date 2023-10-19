@@ -4,6 +4,7 @@ const Breadcrumbs = () => {
   const location = useLocation();
   const pathnames = location.pathname.split("/").filter((x) => x);
   const separator = "/";
+
   return (
     <ul className="flex gap-1 text-sm my-5">
       <li className="text-blue-500 capitalize">
@@ -15,7 +16,7 @@ const Breadcrumbs = () => {
         const route = `/${pathnames.slice(0, p + 1).join("/")}`;
         return last ? (
           <li className="uppercase" key={p}>
-            {path}
+            {path.replace(/-/g, " ")}
           </li>
         ) : (
           <li className="text-blue-500 capitalize" key={p}>

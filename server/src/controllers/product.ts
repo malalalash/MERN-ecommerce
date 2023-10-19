@@ -146,7 +146,7 @@ export const getAll = async (req: Request, res: Response) => {
   try {
     const page = Number(req.query.page) - 1 || 0;
     const limit = Number(req.query.limit) || 20;
-    const price = Number(req.query.price) || 300;
+    const price = Number(req.query.price) || 999;
     const search = req.query.search || "";
     let sort = req.query.sort || "newest";
     let filter: boolean | undefined = undefined;
