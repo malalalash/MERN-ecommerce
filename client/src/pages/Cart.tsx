@@ -15,7 +15,7 @@ const Cart = () => {
             <div>
               <div>
                 {items.length === 0 ? (
-                  <p>No items added to cart.</p>
+                  <p className="font-bold mt-8">No items added to cart.</p>
                 ) : (
                   <ul>
                     {items.map((item) => (
