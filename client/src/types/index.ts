@@ -34,7 +34,7 @@ type CartItem = {
   price: number;
   size: string;
   color: string;
-  stockQuantity: number;
+  quantity: number;
   category: {
     _id: string;
     name: string;
@@ -51,6 +51,7 @@ export interface CartStoreI {
   addItem: (data: CartItem) => void;
   removeItem: (id: string) => void;
   removeAll: () => void;
+  changeQuantity: (quantity: number, id: string) => void;
 }
 
 export type CartItemProps = {

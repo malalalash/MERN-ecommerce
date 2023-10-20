@@ -34,7 +34,7 @@ const Product = () => {
     if (product) {
       addItem({
         _id: product._id,
-        stockQuantity: product.stockQuantity,
+        quantity: 1,
         images: product.images,
         name: product.name,
         price: product.price,

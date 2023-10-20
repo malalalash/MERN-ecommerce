@@ -24,6 +24,15 @@ export const useCart = create(
         set({ items: [...get().items.filter((item) => item._id !== id)] });
       },
       removeAll: () => set({ items: [] }),
+
+      changeQuantity: (quantity: number, id: string) => {
+        const currentItems = get().items;
+        set({
+          items: currentItems.map((item) =>
+            item._id === id ? { ...item, quantity } : item
+          ),
+        });
+      },
     }),
     {
       name: "cart",
