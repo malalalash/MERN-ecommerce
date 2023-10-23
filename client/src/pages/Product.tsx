@@ -8,7 +8,7 @@ import { HeartIcon } from "@heroicons/react/24/outline";
 import Breadcrumbs from "../components/Breadcrumbs/Breadcrumbs";
 import { useCart } from "../store/cartStore";
 import { MouseEventHandler } from "react";
-
+import { Toaster, toast } from "sonner";
 const Product = () => {
   useScrollToTop();
   const { slug } = useParams();
@@ -21,7 +21,7 @@ const Product = () => {
     setCurrentImage(product?.images[0].url);
   }, [product]);
 
-  const { addItem } = useCart();
+  const { addItem, items } = useCart();
 
   const [currentImage, setCurrentImage] = useState(product?.images[0].url);
   const [selectedSize, setSelectedSize] = useState("");
@@ -29,8 +29,17 @@ const Product = () => {
 
   const onAddToCart: MouseEventHandler<HTMLButtonElement> = () => {
     if (!selectedColor || !selectedSize) {
+      toast.error("Please select color and size");
       return;
     }
+
+    const item = items.find((item) => item._id === product?._id);
+
+    if (item) {
+      toast.error("Item already added to cart");
+      return;
+    }
+
     if (product) {
       addItem({
         _id: product._id,
@@ -42,6 +51,7 @@ const Product = () => {
         color: selectedColor,
         size: selectedSize,
       });
+      toast.success("Item added to cart");
     }
   };
 
@@ -133,7 +143,9 @@ const Product = () => {
                   id="size"
                   required
                 >
-                  <option value="">Select size</option>
+                  <option className="hidden" value="">
+                    Select size
+                  </option>
                   {product?.sizes.map((size, s) => {
                     return (
                       <option key={s} className="lg:text-lg">
@@ -158,6 +170,7 @@ const Product = () => {
           </div>
         </div>
       </article>
+      <Toaster richColors />
     </section>
   );
 };
