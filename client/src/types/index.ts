@@ -57,3 +57,24 @@ export interface CartStoreI {
 export type CartItemProps = {
   data: CartItem;
 };
+
+export type UserFormType = {
+  email: string;
+  password: string;
+};
+
+export type UserType = {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  isAdmin: boolean;
+  avatar: string;
+};
+
+export type UserContextType = {
+  user: UserType;
+  login: (data: UserFormType) => Promise<void>;
+  logout: () => Promise<void>;
+  authorize: () => Promise<void>;
+};

@@ -31,19 +31,19 @@ const router = createBrowserRouter(
     <Route element={<PrivateRoute />}>
       <Route path="/" element={<RootLayout />}>
         <Route index={true} path="/" element={<Home />} />
-        <Route path={"products"} element={<Products />} />
+        <Route path="products" element={<Products />} />
         <Route
           path={"products/:productId"}
           element={<Product />}
           loader={getCategories}
         />
-        <Route path={"add-product"} element={<AddProduct />} />
-        <Route path={"customers"} element={<Customers />} />
-        <Route path={"orders"} element={<Orders />} />
-        <Route path={"transactions"} element={<Transactions />} />
+        <Route path="add-product" element={<AddProduct />} />
+        <Route path="customers" element={<Customers />} />
+        <Route path="orders" element={<Orders />} />
+        <Route path="transactions" element={<Transactions />} />
       </Route>
     </Route>,
-    <Route path={"login"} element={<Login />} />,
+    <Route path="login" element={<Login />} />,
     <Route path="*" element={<Navigate to="/" />} />,
   ])
 );
